@@ -157,3 +157,30 @@ Temporary Items
 *.icloud
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
+
+# ------------------------------------------------------------------------------
+# 5. Node.js & Package Managers
+# ------------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ------------------------------------------------------------------------------
+# 6. Astro Framework & Build Output
+# ------------------------------------------------------------------------------
+# Production build directory
+dist/
+# Generated TypeScript declarations and cache
+.astro/
+
+# ------------------------------------------------------------------------------
+# 7. Google Cloud & Firebase
+# ------------------------------------------------------------------------------
+# Firebase deployment cache and hosting bundles
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
