@@ -184,3 +184,16 @@ firebase-debug.log*
 firestore-debug.log*
 ui-debug.log*
 
+# GCP & Service Account credentials
+*credentials*.json
+*service-account*.json
+*-key.json
+client_secret*.json
+
+# ------------------------------------------------------------------------------
+# 8. Additional IDEs & Test Coverage
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+coverage/
+.nyc_output/

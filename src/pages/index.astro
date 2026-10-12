@@ -1,58 +1,400 @@
 ---
+import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import mainBanner from '../../assets/banners/main-banner.png';
+import profilePic from '../assets/profile.jpg';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} | Cloud & Software Engineering`} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 820px;
+				max-width: calc(100% - 2em);
+			}
+
+			.hero-banner-container {
+				position: relative;
+				margin-bottom: 2rem;
+			}
+
+			.hero-banner {
+				width: 100%;
+				height: auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+				display: block;
+			}
+
+			.profile-photo {
+				position: absolute;
+				right: 5%;
+				bottom: -75px;
+				width: 145px;
+				height: 145px;
+				border-radius: 12px;
+				object-fit: cover;
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+				border: 3px solid var(--bg-body);
+				z-index: 2;
+				transition: border-color 0.2s ease;
+			}
+
+			.hero-intro {
+				margin-bottom: 2.5rem;
+			}
+
+			.hero-title {
+				font-size: 2.75rem;
+				font-weight: 700;
+				margin-bottom: 0.25rem;
+				letter-spacing: -0.02em;
+			}
+
+			.hero-subtitle {
+				font-size: 1.25rem;
+				color: var(--accent);
+				font-weight: 700;
+				margin-bottom: 1.25rem;
+			}
+
+			.hero-bio {
+				font-size: 1.15rem;
+				line-height: 1.7;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 1.5rem;
+			}
+
+			.action-buttons {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-bottom: 2rem;
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.6rem 1.2rem;
+				border-radius: 8px;
+				font-weight: 700;
+				text-decoration: none;
+				font-size: 0.95rem;
+				transition: background-color 0.2s ease, transform 0.1s ease;
+			}
+
+			.btn-primary {
+				background-color: var(--accent);
+				color: #fff;
+			}
+
+			.btn-primary:hover {
+				background-color: var(--accent-dark);
+				color: #fff;
+			}
+
+			.btn-secondary {
+				background-color: rgb(var(--gray-light));
+				color: rgb(var(--black));
+				border: 1px solid var(--border-color);
+			}
+
+			.btn-secondary:hover {
+				background-color: var(--border-color);
+				color: rgb(var(--black));
+			}
+
+			section {
+				margin-top: 3.5rem;
+			}
+
+			.section-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 1.5rem;
+				border-bottom: 2px solid var(--border-color);
+				padding-bottom: 0.5rem;
+			}
+
+			.section-header h2 {
+				margin: 0;
+				font-size: 1.75rem;
+			}
+
+			.grid-cards {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 1.25rem;
+			}
+
+			.card {
+				background: var(--bg-surface);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				padding: 1.25rem;
+				transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.2s ease;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+
+			.card:hover {
+				transform: translateY(-2px);
+				box-shadow: var(--box-shadow);
+				border-color: var(--accent);
+			}
+
+			.card h3 {
+				font-size: 1.2rem;
+				margin-bottom: 0.5rem;
+				color: rgb(var(--black));
+			}
+
+			.card p {
+				font-size: 0.95rem;
+				line-height: 1.55;
+				margin-bottom: 1rem;
+				color: rgb(var(--gray-dark));
+			}
+
+			.tag-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem;
+				margin-top: auto;
+				list-style: none;
+				padding: 0;
+			}
+
+			.tag {
+				font-size: 0.75rem;
+				background-color: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+				border: 1px solid var(--border-color);
+				padding: 0.2rem 0.55rem;
+				border-radius: 4px;
+				font-weight: 700;
+			}
+
+			@media (max-width: 640px) {
+				.profile-photo {
+					width: 110px;
+					height: 110px;
+					bottom: -55px;
+					right: 1.5rem;
+				}
+				.hero-title {
+					font-size: 2.1rem;
+				}
+				.hero-subtitle {
+					font-size: 1.1rem;
+					max-width: calc(100% - 130px);
+				}
+			}
+
+			@media (max-width: 480px) {
+				.hero-banner-container {
+					margin-bottom: 4rem;
+				}
+				.profile-photo {
+					right: 50%;
+					transform: translateX(50%);
+					bottom: -50px;
+				}
+				.hero-intro {
+					text-align: center;
+				}
+				.hero-subtitle {
+					max-width: 100%;
+				}
+				.action-buttons {
+					flex-direction: column;
+				}
+				.btn {
+					justify-content: center;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>
-					Edit this page in <code>src/pages/index.astro</code>
-				</li>
-				<li>
-					Edit the site header items in <code>src/components/Header.astro</code>
-				</li>
-				<li>
-					Add your name to the footer in <code>src/components/Footer.astro</code>
-				</li>
-				<li>
-					Check out the included blog posts in <code>src/content/blog/</code>
-				</li>
-				<li>
-					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
-				</li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a> or{' '}
-				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
-				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<div class="hero-banner-container">
+				<Image
+					src={mainBanner}
+					alt="Ben Weston - Cloud & Software Engineering"
+					class="hero-banner"
+					loading="eager"
+				/>
+				<Image
+					src={profilePic}
+					alt="Ben Weston"
+					class="profile-photo"
+					width={290}
+					height={290}
+					loading="eager"
+				/>
+			</div>
+
+			<div class="hero-intro">
+				<h1 class="hero-title">Ben Weston</h1>
+				<div class="hero-subtitle">Cloud & Software Engineering · Systems Architecture</div>
+				<p class="hero-bio">
+					Welcome! I am an engineer focused on cloud infrastructure, enterprise Linux, systems
+					architecture, and developer productivity tooling. Here you will find project
+					schematics, infrastructure sandbox experiments, and system administration guides.
+				</p>
+				<div class="action-buttons">
+					<a
+						href="https://github.com/benweston"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn btn-primary"
+					>
+						GitHub Profile ↗
+					</a>
+					<a
+						href="https://www.linkedin.com/in/westonb26918/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn btn-secondary"
+					>
+						LinkedIn Profile ↗
+					</a>
+				</div>
+			</div>
+
+			<section>
+				<div class="section-header">
+					<h2>Core Engineering Focus</h2>
+				</div>
+				<div class="grid-cards">
+					<div class="card">
+						<div>
+							<h3>Cloud & Architecture</h3>
+							<p>
+								Designing resilient, cost-conscious solutions across Google Cloud Platform (GCP).
+								Infrastructure as Code with Terraform, containerized services, and edge delivery.
+							</p>
+						</div>
+						<ul class="tag-list">
+							<li class="tag">GCP</li>
+							<li class="tag">Terraform</li>
+							<li class="tag">IaC</li>
+							<li class="tag">Docker</li>
+						</ul>
+					</div>
+
+					<div class="card">
+						<div>
+							<h3>Linux & Systems</h3>
+							<p>
+								Enterprise Linux operations (Fedora/RHEL), system administration, automation
+								scripting, security hardening, and performance monitoring.
+							</p>
+						</div>
+						<ul class="tag-list">
+							<li class="tag">Fedora/RHEL</li>
+							<li class="tag">Bash</li>
+							<li class="tag">Systemd</li>
+							<li class="tag">Hardening</li>
+						</ul>
+					</div>
+
+					<div class="card">
+						<div>
+							<h3>Software & DX</h3>
+							<p>
+								Developer experience tooling, automated CI/CD workflows, TypeScript, Python,
+								and lightweight, performant web applications with Astro.
+							</p>
+						</div>
+						<ul class="tag-list">
+							<li class="tag">TypeScript</li>
+							<li class="tag">Python</li>
+							<li class="tag">Astro</li>
+							<li class="tag">CI/CD</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section id="projects">
+				<div class="section-header">
+					<h2>Featured Projects</h2>
+				</div>
+				<div class="grid-cards">
+					<a
+						href="https://github.com/benweston/cloud-sandbox"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="card"
+						style="text-decoration: none;"
+					>
+						<div>
+							<h3>Cloud Sandbox ↗</h3>
+							<p>
+								Ephemeral cloud infrastructure and sandboxed environments for rapid
+								experimentation, architecture prototyping, and automated provisioning.
+							</p>
+						</div>
+						<ul class="tag-list">
+							<li class="tag">GCP</li>
+							<li class="tag">Terraform</li>
+							<li class="tag">Cloud Infrastructure</li>
+						</ul>
+					</a>
+
+					<a
+						href="https://github.com/benweston/Fedora-Linux-System-Administration"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="card"
+						style="text-decoration: none;"
+					>
+						<div>
+							<h3>Fedora Linux Administration ↗</h3>
+							<p>
+								Operational playbooks, hardening configurations, and system administration guides
+								for production and workstation Linux environments.
+							</p>
+						</div>
+						<ul class="tag-list">
+							<li class="tag">Fedora</li>
+							<li class="tag">Sysadmin</li>
+							<li class="tag">Security</li>
+						</ul>
+					</a>
+
+					<a
+						href="https://github.com/benweston/dx-scripts"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="card"
+						style="text-decoration: none;"
+					>
+						<div>
+							<h3>Developer Workflows (dx-scripts) ↗</h3>
+							<p>
+								Curated automation scripts, developer productivity utilities, and workstation
+								configuration management.
+							</p>
+						</div>
+						<ul class="tag-list">
+							<li class="tag">Bash</li>
+							<li class="tag">Dotfiles</li>
+							<li class="tag">DevEx</li>
+						</ul>
+					</a>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
