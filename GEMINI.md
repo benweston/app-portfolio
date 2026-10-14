@@ -35,6 +35,8 @@ Content and profile cards follow a defined three-tier workflow order:
 
 ```text
 app-portfolio/
+├── .github/
+│   └── workflows/          # GitHub Actions pipelines (ci.yml, deploy-staging.yml, deploy-production.yml)
 ├── assets/                 # Repository-level assets (banners, diagrams, screenshots)
 │   ├── banners/            # Header and promotional banners (e.g. main-banner.png)
 │   ├── diagrams/           # Architecture diagrams and schematics
@@ -115,6 +117,20 @@ All development commands are executed from the repository root:
    - **Live (`benweston.site`):** Attached to `app-portfolio-e0f7f` site.
    - **Staging (`stage.benweston.site`):** Attached to `app-portfolio-stage` site.
    - DNS records (A/TXT/CNAME) managed in Squarespace, SSL managed automatically by Google.
+
+---
+
+## CI/CD Pipeline (GitHub Actions)
+
+Trunk-Based Development with automated checks and promotion:
+
+| Workflow | Trigger | Action | Target URL |
+| :--- | :--- | :--- | :--- |
+| `ci.yml` | Pull Request to `main` | Runs `npx astro check` & `npm run build` | N/A (Build verification gate) |
+| `deploy-staging.yml` | Push/merge to `main` | Validates, builds & deploys to Staging | `https://stage.benweston.site` |
+| `deploy-production.yml` | Tag push `v*` (or manual dispatch) | Validates, builds & deploys to Production | `https://benweston.site` |
+
+- **Authentication:** Deployments authenticate using Google Service Account secret `FIREBASE_SERVICE_ACCOUNT` via `google-github-actions/auth@v2`.
 
 ---
 
