@@ -80,27 +80,41 @@ All development commands are executed from the repository root:
    ```bash
    npx firebase login
    ```
-2. **Configuration (`firebase.json`):**
-   Ensure `dist` is configured as the public hosting directory:
+2. **Configuration (`firebase.json` & `.firebaserc`):**
+   Multisite targets configure separate pipelines for production and staging:
    ```json
    {
-     "hosting": {
-       "public": "dist",
-       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-       "cleanUrls": true
-     }
+     "hosting": [
+       {
+         "target": "live",
+         "public": "dist",
+         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+         "cleanUrls": true
+       },
+       {
+         "target": "stage",
+         "public": "dist",
+         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+         "cleanUrls": true
+       }
+     ]
    }
    ```
-3. **Deploying:**
-   ```bash
-   npm run build
-   npx firebase deploy --only hosting
-   ```
-   *(Or `firebase deploy --only hosting` if installed globally)*
-4. **Custom Domain (`benweston.site`):**
-   - Managed in Firebase Console: **Hosting → Add Custom Domain (`benweston.site`)**.
-   - DNS pointing to Google Edge `A` / `TXT` records in Squarespace.
-   - SSL certificates are automatically provisioned and managed by Google.
+3. **Deploying to Environments:**
+   - **Deploy to Staging:**
+     ```bash
+     npm run build
+     npx firebase deploy --only hosting:stage
+     ```
+   - **Promote to Live (Production):**
+     ```bash
+     npm run build
+     npx firebase deploy --only hosting:live
+     ```
+4. **Custom Domains:**
+   - **Live (`benweston.site`):** Attached to `app-portfolio-e0f7f` site.
+   - **Staging (`stage.benweston.site`):** Attached to `app-portfolio-stage` site.
+   - DNS records (A/TXT/CNAME) managed in Squarespace, SSL managed automatically by Google.
 
 ---
 
