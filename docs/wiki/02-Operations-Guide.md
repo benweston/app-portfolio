@@ -1,103 +1,110 @@
-# 02 Operations Guide
+# 02 Operations Guide: Deployment & Release Workflow
 
-This guide details the hosting infrastructure, delivery lifecycle, CI/CD automation pipelines, and release engineering procedures for **[benweston.site](https://benweston.site/)**.
-
----
-
-## 🏛️ Core Operational Tenet
-
-> [!IMPORTANT]
-> **There must never be a deployment to Production that is not tied to an official release. The release tag IS the live site.**
-
-Unversioned, ad-hoc, or experimental commits must never be pushed directly to production. All production updates must originate from an audited, numbered release tag.
+This document codifies the hosting architecture, environment hierarchy, CI/CD automation, and release engineering ruleset for **[benweston.site](https://benweston.site/)**.
 
 ---
 
-## 🌐 Hosting Infrastructure & Environments
+## 🏛️ Core Principles & Ruleset
 
-The site is hosted on **Google Cloud via Firebase Hosting Multisite** within project `app-portfolio-e0f7f`, delivered across Google's Global Edge CDN:
+1. **The Release IS the Live Site:**
+   > [!IMPORTANT]
+   > **There must never be a deployment to Production that is not tied to an official version release.** Unversioned or arbitrary commits must never be pushed directly to Live.
 
-| Environment | Firebase Target | Site ID | Public URL | Upstream Trigger |
+2. **Trunk-Based Development:**
+   - The repository operates on a single trunk: `main`.
+   - **Environments are deployment targets, not git branches.** We do not maintain long-lived `staging` or `production` branches.
+   - `main` represents the latest integrated code and continuously deploys to **Staging**.
+   - Production strictly tracks immutable release tags (`v*`).
+
+3. **Standardised Localisation & Naming:**
+   - All code, copy, documentation, and metadata adhere to **British English (en-GB)** (e.g. *optimised*, *containerised*, *virtualisation*, *licence*).
+   - The cloud provider is always referred to as **Google Cloud** (never "GCP" or "Google Cloud Platform").
+
+---
+
+## 🌐 Environment Architecture
+
+The site uses Firebase Multisite within Google Cloud project `app-portfolio-e0f7f`, deployed across Google's Global Edge CDN:
+
+| Environment | Target Name | Hosting Site ID | Public URL | Upstream Trigger |
 | :--- | :--- | :--- | :--- | :--- |
 | **Local Dev** | N/A | N/A | `http://localhost:4321` | `npm run dev` |
 | **Staging** | `stage` | `app-portfolio-stage` | [stage.benweston.site](https://stage.benweston.site/) | Any push or merge to `main` |
-| **Production (Live)** | `live` | `app-portfolio-e0f7f` | [benweston.site](https://benweston.site/) | Tag push `v*` (or manual dispatch) |
+| **Live (Production)** | `live` | `app-portfolio-e0f7f` | [benweston.site](https://benweston.site/) | Release tag push (`v*`) |
 
-### Multisite Configuration
-Managed via [`firebase.json`](https://github.com/benweston/app-portfolio/blob/main/firebase.json) and [`.firebaserc`](https://github.com/benweston/app-portfolio/blob/main/.firebaserc):
-```json
-{
-  "hosting": [
-    {
-      "target": "live",
-      "public": "dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true
-    },
-    {
-      "target": "stage",
-      "public": "dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true
-    }
-  ]
-}
+---
+
+## 🔄 Delivery Lifecycle
+
+```mermaid
+flowchart TD
+    A["Local Work (npm run dev)"] --> B["Commit & Push to main"]
+    B --> C["GitHub Actions: deploy-staging.yml"]
+    C --> D["Staging Live (stage.benweston.site)"]
+    D --> E{"Visual Review & Sign-Off"}
+    E -->|Issues found| A
+    E -->|Approved for Live| F["Publish Release (vX.Y.Z)"]
+    F --> G["GitHub Actions: deploy-production.yml"]
+    G --> H["Production Live (benweston.site)"]
 ```
 
 ---
 
-## 🤖 CI/CD Pipeline Architecture (GitHub Actions)
+## 🤖 CI/CD Automation Pipelines (GitHub Actions)
 
-Deployments are automated through three workflows under `.github/workflows/`:
+All deployments run via GitHub Actions authenticated using Google Cloud service account `github-actions-deployer` with fine-grained **Firebase Hosting Admin** permissions (`FIREBASE_SERVICE_ACCOUNT` secret).
 
-```text
-[Feature Branch / PR]
-       │
-       ▼
-  ci.yml (PR Gatekeeper: typecheck + build)
-       │
-   (Merged)
-       ▼
- [push to main]
-       │
-       ▼
-  deploy-staging.yml (Continuous Staging: stage.benweston.site)
-       │
- (Human Inspection)
-       ▼
- [publish tag vX.Y.Z]
-       │
-       ▼
-  deploy-production.yml (Production Promotion: benweston.site)
-```
-
-### 1. `ci.yml` (Pull Request Gatekeeper)
+### 1. PR Gatekeeper (`.github/workflows/ci.yml`)
 - **Trigger:** Pull Requests targeting `main`.
-- **Function:** Runs `npm ci`, `npx astro check`, and `npm run build`. Requires zero cloud credentials. Prevents regressions from entering `main`.
+- **Tasks:**
+  - Installs dependencies (`npm ci`).
+  - Runs Astro static diagnostics (`npx astro check`).
+  - Verifies production compilation (`npm run build`).
+- **Purpose:** Prevents broken code, missing imports, or typing errors from ever merging into `main`. Requires zero cloud secrets.
 
-### 2. `deploy-staging.yml` (Continuous Staging)
+### 2. Continuous Staging (`.github/workflows/deploy-staging.yml`)
 - **Trigger:** Push or merge to `main`.
-- **Function:** Builds production static assets, authenticates to Google Cloud using service account secret `FIREBASE_SERVICE_ACCOUNT`, and executes:
-  ```bash
-  npx firebase deploy --only hosting:stage
-  ```
-- **Function:** Guarantees `stage.benweston.site` is an always-current, living replica of `main`.
+- **Tasks:**
+  - Executes type-checking and compiles static assets into `dist/`.
+  - Authenticates to Google Cloud.
+  - Executes `npx firebase deploy --only hosting:stage`.
+- **Purpose:** Ensures `stage.benweston.site` is an always-fresh, living preview of the latest commit on `main`.
 
-### 3. `deploy-production.yml` (Production Release)
+### 3. Production Release (`.github/workflows/deploy-production.yml`)
 - **Trigger:** Tag push matching `v*` (e.g. `v0.2.0`), or manual `workflow_dispatch`.
-- **Function:** Compiles fresh static assets and executes:
-  ```bash
-  npx firebase deploy --only hosting:live
-  ```
+- **Tasks:**
+  - Compiles fresh static assets into `dist/`.
+  - Authenticates to Google Cloud.
+  - Executes `npx firebase deploy --only hosting:live`.
+- **Purpose:** Promotes verified staging code to the live domain.
 
 ---
 
-## 🚀 Step-by-Step Release Management
+## 🛠️ Step-by-Step Developer Workflows
 
-When changes on `stage.benweston.site` have been visually inspected and approved for live release:
+### Scenario A: Day-to-Day Development & Feature Iteration
 
-### Step 1: Bump Semantic Version
-Bump version in `package.json` and `package-lock.json` without auto-tagging:
+1. Work on `main` (or create a short-lived branch `git checkout -b feat/my-feature`).
+2. Verify locally:
+   ```bash
+   npx astro check
+   npm run dev
+   ```
+3. Commit and push:
+   ```bash
+   git commit -m "feat: describe the change"
+   git push origin main
+   ```
+4. **Inspect on Staging:** Open [stage.benweston.site](https://stage.benweston.site/) to review the changes live on Google's Edge CDN.
+
+---
+
+### Scenario B: Promoting to Production (Cutting a Release)
+
+Once changes on `stage.benweston.site` have been visually inspected and approved:
+
+#### Step 1: Bump the Version
+Update `package.json` and `package-lock.json` to the target Semantic Version:
 ```bash
 npm version <x.y.z> --no-git-tag-version
 git add package.json package-lock.json
@@ -105,50 +112,53 @@ git commit -m "chore(release): bump version to <x.y.z>"
 git push origin main
 ```
 
-### Step 2: Publish the GitHub Release
-1. Navigate to **[Releases → Draft a new release](https://github.com/benweston/app-portfolio/releases/new)**.
-2. **Choose a tag:** Type `v<x.y.z>` and select `+ Create new tag: v<x.y.z> on publish`.
+#### Step 2: Publish the GitHub Release
+1. Navigate to **Releases → Draft a new release**.
+2. **Tag:** Enter `v<x.y.z>` (select *Create new tag on publish*).
 3. **Target:** `main`.
-4. **Title:** `v<x.y.z> - <Title Summary>`.
-5. **Description:** Fill in the standardised three-tier release notes:
-   - `## Highlights`
-   - `## Key Focus Areas`
-   - `## Next Steps`
-6. Click **Publish release**.
+4. **Title:** `v<x.y.z> - <Short Summary>`.
+5. **Description:** Use the standard three-tier template:
 
-GitHub Actions will detect the tag and automatically deploy `v<x.y.z>` to **[benweston.site](https://benweston.site/)**.
+```markdown
+## Highlights
+- Key user-facing updates, new pages, or major architectural milestones.
+
+## Key Focus Areas
+- Deep-dive technical changes across Linux, DX, Cloud, or CI/CD.
+
+## Next Steps
+- Planned follow-up tasks and roadmap items.
+```
+
+6. Click **Publish release**.
+7. GitHub Actions will detect the tag and automatically deploy `v<x.y.z>` to **[benweston.site](https://benweston.site/)**.
 
 ---
 
-## 🔄 Emergency Rollback Procedures
+### Scenario C: Emergency Rollbacks
 
 If an unexpected regression is detected on production:
 
-### Method 1: GitHub Actions Re-dispatch (Recommended)
-1. Go to **Actions → Deploy to Production**.
-2. Click **Run workflow**.
-3. Under **Use workflow from**, select the previous stable tag (e.g. `v0.1.0`).
-4. Click **Run workflow**. The previous stable version will be compiled and promoted to live within 45 seconds.
-
-### Method 2: Manual CLI Deployment
-```bash
-git checkout v<previous-stable-tag>
-npm run build
-npx firebase deploy --only hosting:live
-```
+1. **Option 1 (GitHub UI):** Go to **Actions → Deploy to Production → Run workflow**, select the previous stable tag (e.g. `v0.1.0`), and trigger the run.
+2. **Option 2 (CLI Fallback):**
+   ```bash
+   git checkout v<previous-stable-tag>
+   npm run build
+   npx firebase deploy --only hosting:live
+   ```
 
 ---
 
-## 💻 Local CLI Deployment Fallback
+## 💻 Manual CLI Fallbacks
 
-If GitHub Actions is ever experiencing an outage, deployments can be triggered directly from the workstation:
+If GitHub Actions is unavailable, manual deployments can be executed locally from the repository root:
 
 ```bash
-# Deploy to Staging
+# Deploy directly to Staging
 npm run build
 npx firebase deploy --only hosting:stage
 
-# Deploy to Live
+# Deploy directly to Live
 npm run build
 npx firebase deploy --only hosting:live
 ```
