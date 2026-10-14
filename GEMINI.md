@@ -166,4 +166,5 @@ When cutting a release (standardised on the [sublime-font-checks](https://github
 - **Semantic & Accessible HTML:** Adhere to WCAG 2.1 AA accessibility guidelines. Use semantic tags (`<header>`, `<main>`, `<article>`, `<nav>`, `<aside>`, `<footer>`). Ensure high contrast and appropriate `alt` attributes.
 - **Content Collections Integrity:** New content collections in `src/content/` must satisfy schemas defined in `src/content.config.ts`.
 - **Asset Boundaries:** Do **not** overwrite, delete, or relocate binary files in `assets/` (e.g. `main-banner.png`) without explicit user permission.
+- **Privacy & Security:** Never include personal email addresses or sensitive credentials in public-facing documentation, wikis, or source code. Always use generic role titles (e.g. *Project Owner*, *Repository Administrator*).
 - **Documentation Preservation:** Maintain documentation integrity. Keep existing comments, licenses, and docstrings intact.
