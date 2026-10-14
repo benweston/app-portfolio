@@ -1,7 +1,19 @@
 # App Portfolio (`benweston.site`) - Agent Instructions & Project Context
 
 ## Project Overview
-This repository contains the source code for Ben Weston's personal website, engineering portfolio, and technical writing hub at [benweston.site](https://benweston.site/). The site showcases cloud & software engineering projects, system architecture diagrams, and technical articles.
+This repository contains the source code for Ben Weston's personal website, engineering portfolio, and technical writing hub at [benweston.site](https://benweston.site/). The site showcases enterprise Linux architecture, systems engineering, developer productivity tooling, and cloud infrastructure.
+
+---
+
+## Core Engineering Pillars & Workflow Chain
+
+Content and profile cards follow a defined three-tier workflow order:
+1. **Linux & Systems:** Enterprise Linux operations across Red Hat, SUSE, and Debian families (and their derivatives), covering system administration, automation scripting, security hardening, and performance monitoring.
+2. **Software & DX:** Workstation/developer tooling (`dx-*`), automated CI/CD pipelines, robust Bash & shell scripting for workflow automation, and Python for systems and software development.
+3. **Cloud & Architecture:** Designing resilient, cost-conscious solutions across Google Cloud, Infrastructure as Code with Terraform, containerised services (Docker), and edge delivery.
+
+> [!NOTE]
+> **Stack Scope:** TypeScript is utilised strictly as internal tooling for Astro's static type-checking and component props. It is **not** part of Ben's highlighted personal engineering stack. Do not feature TypeScript in copy, skills lists, or portfolio cards.
 
 ---
 
@@ -10,9 +22,9 @@ This repository contains the source code for Ben Weston's personal website, engi
 - **Framework:** [Astro](https://astro.build/) (v5.x)
   - Content Collections for type-safe Markdown (`.md`) and MDX (`.mdx`) authoring.
   - Zero-JS by default for maximum performance, SEO, and accessibility.
-  - Scoped styling with Atkinson Hyperlegible typography.
+  - Scoped styling with Atkinson Hyperlegible typography and dark/light theme switching.
 - **Runtime & Package Manager:** Node.js (>=22.12.0) with `npm`.
-- **Hosting & Infrastructure:** Google Cloud Platform (GCP) via **Firebase Hosting**.
+- **Hosting & Infrastructure:** Google Cloud via **Firebase Hosting**.
   - Deployed to Google's Global Edge CDN with zero server runtime overhead.
   - Custom domain (`benweston.site`) managed in Squarespace, pointing to Google Edge `A` / `TXT` records.
   - Automatic Let's Encrypt SSL provisioning and renewal managed by Google.
@@ -25,23 +37,23 @@ This repository contains the source code for Ben Weston's personal website, engi
 app-portfolio/
 ├── assets/                 # Repository-level assets (banners, diagrams, screenshots)
 │   ├── banners/            # Header and promotional banners (e.g. main-banner.png)
-│   ├── diagrams/           # Cloud architecture diagrams and schematics
+│   ├── diagrams/           # Architecture diagrams and schematics
 │   ├── icons/              # Logos and SVG iconography
+│   ├── misc/               # Miscellaneous asset files
 │   └── screenshots/        # Project and demo screenshots
 ├── public/                 # Static assets served at site root (favicons, robots.txt)
 ├── src/
-│   ├── assets/             # Bundled, optimized image and font assets
-│   ├── components/         # Reusable Astro UI components (Header, Footer, BaseHead)
-│   ├── content/
-│   │   └── blog/           # Technical articles and blog posts (.md and .mdx)
-│   ├── layouts/            # Page template layouts (e.g. BlogPost.astro)
-│   ├── pages/              # File-based routing (index, about, blog, rss.xml)
+│   ├── assets/             # Bundled, optimised image and font assets
+│   ├── components/         # Reusable Astro UI components (Header, Footer, BaseHead, ThemeToggle)
+│   ├── content/            # Content Collections (planned for blog / articles)
+│   ├── pages/              # File-based routing (index.astro)
+│   ├── styles/             # Global stylesheets (global.css)
 │   ├── consts.ts           # Site-wide constants (SITE_TITLE, SITE_DESCRIPTION)
-│   └── content.config.ts   # Zod schema definitions for content collections
+│   └── content.config.ts   # Schema definitions for content collections
 ├── astro.config.mjs        # Astro configuration and integrations (mdx, sitemap)
 ├── package.json            # Project dependencies and npm scripts
 ├── tsconfig.json           # TypeScript configuration extending astro/tsconfigs/strict
-├── .gitignore              # Git ignore rules for Node, Astro, GCP, and OS files
+├── .gitignore              # Git ignore rules for Node, Astro, Google Cloud, and OS files
 └── GEMINI.md               # Persistent agent guidelines and project context
 ```
 
@@ -63,10 +75,10 @@ All development commands are executed from the repository root:
 
 ## Google Cloud / Firebase Hosting Deployment
 
-1. **Prerequisites:** Ensure `gcloud` and `firebase-tools` CLI are authenticated:
+1. **Authentication:**
+   Ensure `firebase-tools` CLI is authenticated (it is installed as a local dev dependency):
    ```bash
-   npm install -g firebase-tools
-   firebase login
+   npx firebase login
    ```
 2. **Configuration (`firebase.json`):**
    Ensure `dist` is configured as the public hosting directory:
@@ -82,20 +94,46 @@ All development commands are executed from the repository root:
 3. **Deploying:**
    ```bash
    npm run build
-   firebase deploy --only hosting
+   npx firebase deploy --only hosting
    ```
+   *(Or `firebase deploy --only hosting` if installed globally)*
 4. **Custom Domain (`benweston.site`):**
-   - Add domain in Firebase Console: **Hosting → Add Custom Domain (`benweston.site`)**.
-   - Copy the provided `TXT` (verification) and two `A` records into Squarespace DNS Settings.
-   - SSL certificates are automatically provisioned by Google once DNS propagates.
+   - Managed in Firebase Console: **Hosting → Add Custom Domain (`benweston.site`)**.
+   - DNS pointing to Google Edge `A` / `TXT` records in Squarespace.
+   - SSL certificates are automatically provisioned and managed by Google.
+
+---
+
+## Release Workflow
+
+When cutting a release (standardised on the [sublime-font-checks](https://github.com/benweston/sublime-font-checks) convention):
+
+1. **Bump Version:**
+   Update `package.json` and `package-lock.json` without auto-tagging:
+   ```bash
+   npm version <x.y.z> --no-git-tag-version
+   git add package.json package-lock.json
+   git commit -m "chore(release): bump version to <x.y.z>"
+   git push origin main
+   ```
+2. **Create & Push Annotated Tag:**
+   ```bash
+   git tag -a v<x.y.z> -m "Release v<x.y.z> - <Title>"
+   git push origin v<x.y.z>
+   ```
+3. **Publish GitHub Release:**
+   Create a release from the tag on GitHub with structured notes containing:
+   - `## Highlights`
+   - `## Key Focus Areas`
+   - `## Next Steps`
 
 ---
 
 ## Coding Standards & Agent Guidelines
 
+- **Language & Locale:** Standardise on British English (en-GB) for all copy, documentation, and user-facing text (e.g. *optimised*, *containerised*, *virtualisation*, *colour*). Document root must set `<html lang="en-GB">`.
+- **Google Cloud Naming:** Use "Google Cloud", never "Google Cloud Platform" or "GCP".
 - **Semantic & Accessible HTML:** Adhere to WCAG 2.1 AA accessibility guidelines. Use semantic tags (`<header>`, `<main>`, `<article>`, `<nav>`, `<aside>`, `<footer>`). Ensure high contrast and appropriate `alt` attributes.
-- **Content Collections Integrity:** New blog posts in `src/content/blog/` must satisfy the schema defined in `src/content.config.ts`:
-  - Required frontmatter: `title` (string), `description` (string), `pubDate` (Date/string).
-  - Optional frontmatter: `updatedDate` (Date), `heroImage` (image path).
+- **Content Collections Integrity:** New content collections in `src/content/` must satisfy schemas defined in `src/content.config.ts`.
 - **Asset Boundaries:** Do **not** overwrite, delete, or relocate binary files in `assets/` (e.g. `main-banner.png`) without explicit user permission.
 - **Documentation Preservation:** Maintain documentation integrity. Keep existing comments, licenses, and docstrings intact.
