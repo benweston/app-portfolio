@@ -12,11 +12,18 @@
 
 <div align="justify">
 
-> Personal portfolio showcasing projects, technical writing, and professional experience.   
+> Personal portfolio showcasing enterprise Linux architecture, systems engineering, developer productivity tooling, and cloud infrastructure.   
 
 </div>
 
-## License
+## Environments
+
+| Environment | Purpose | Target URL |
+| :--- | :--- | :--- |
+| **Live (Production)** | Public portfolio and technical hub | [benweston.site](https://benweston.site/) |
+| **Staging** | Pre-production preview and sign-off | [stage.benweston.site](https://stage.benweston.site/) |
+
+## Licence
 
 <div align="justify">
 
