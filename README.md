@@ -18,23 +18,22 @@
 
 ## Environments
 
+<div align="justify">
+
 | Environment | Purpose | Target URL |
 | :--- | :--- | :--- |
 | **Live (Production)** | Public portfolio and technical hub | [benweston.site](https://benweston.site/) |
 | **Staging** | Pre-production preview and sign-off | [stage.benweston.site](https://stage.benweston.site/) |
 
+</div>
+
 ## Documentation
 
-Comprehensive operational guidance, architecture specifications, and release runbooks are documented in the [Project Wiki](https://github.com/benweston/app-portfolio/wiki):
+<div align="justify">
 
-| Guide | Scope & Focus |
-| :--- | :--- |
-| [**01 User Guide**](https://github.com/benweston/app-portfolio/wiki/01-User-Guide) | Workstation setup, local Astro commands, content editing, and styling architecture |
-| [**02 Operations Guide**](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide) | Firebase Multisite hosting, Trunk-Based CI/CD lifecycle, and release management |
-| [**03 Troubleshooting**](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting) | Root cause diagnostics for builds, content hash mismatches, and DNS/SSL resolution |
-| [**04 IAM Model**](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model) | Principle of Least Privilege, service accounts, and CI/CD secret management |
-| [**05 Validation Commands**](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands) | CLI verification runbook for local builds, edge CDN responses, and IAM bindings |
-| [**06 FAQ**](https://github.com/benweston/app-portfolio/wiki/06-FAQ) | Answers on branching strategy, release gating, stack scope, and British English standards |
+Comprehensive operational guidance, architecture specifications, and release runbooks are documented in the [Project Wiki](https://github.com/benweston/app-portfolio/wiki).   
+
+</div>
 
 ## Licence
 
