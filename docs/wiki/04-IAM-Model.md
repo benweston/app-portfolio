@@ -17,7 +17,7 @@ The security model is designed around three core tenets:
 
 | Identity | Platform | Role / Privilege | Scope | Purpose |
 | :--- | :--- | :--- | :--- | :--- |
-| **Ben Weston** (`westonb26918@gmail.com`) | Google Cloud | `roles/owner` | Project `app-portfolio-e0f7f` | Complete project administration and billing management. |
+| **Project Owner** | Google Cloud | `roles/owner` | Project `app-portfolio-e0f7f` | Complete project administration and billing management. |
 | **benweston** | GitHub | Repository Administrator | Repository `app-portfolio` | Code merges, release publishing, repository secret management. |
 
 ---
