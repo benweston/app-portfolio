@@ -43,6 +43,8 @@ app-portfolio/
 │   ├── icons/              # Logos and SVG iconography
 │   ├── misc/               # Miscellaneous asset files
 │   └── screenshots/        # Project and demo screenshots
+├── docs/                   # Project documentation
+│   └── wiki/               # Canonical Markdown source for GitHub Wiki
 ├── public/                 # Static assets served at site root (favicons, robots.txt)
 ├── src/
 │   ├── assets/             # Bundled, optimised image and font assets
