@@ -62,6 +62,14 @@ Comprehensive operational guidance, architecture specifications, and release run
 
 </div>
 
+## Delivery & Roadmap
+
+<div align="justify">
+
+Work tracking, backlog prioritisation, and release workflows are managed on the [App - Portfolio](https://github.com/benweston/app-portfolio/projects) Project Board.   
+
+</div>
+
 ## Licence
 
 <div align="justify">
