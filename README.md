@@ -12,7 +12,7 @@
 
 <div align="justify">
 
-> Personal landing page for [benweston.site](https://benweston.site/).  Engineered with [Astro 5](https://astro.build/) for zero-JS runtime performance, deployed globally across Google's Edge CDN via [Firebase Multisite](https://firebase.google.com/docs/hosting/multisites), and maintained through a state-of-the-art agentic pairing harness powered by [Google Antigravity](https://antigravity.google/).   
+> Personal website engineered with [Astro 5](https://astro.build/) for zero-JS runtime performance, deployed globally across Google's Edge CDN via [Firebase Multisite](https://firebase.google.com/docs/hosting/multisites), and maintained through a state-of-the-art agentic pairing harness powered by [Google Antigravity](https://antigravity.google/).   
 
 </div>
 
