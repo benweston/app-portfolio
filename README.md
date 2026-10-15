@@ -24,10 +24,10 @@
 
 <div align="left">
 
-- **Zero Server Runtime:** No backend daemons or server containers sleeping, idling, or waking up.   
+- **Zero Server Runtime:** No backend daemons or containers sleeping, idling, or waking up.   
 - **Zero Compute Cost:** Served entirely from Google Cloud's global Edge CDN cache.   
 - **Zero Host Maintenance:** No server-side runtime, virtual environments, or container vulnerabilities.   
-- **Sub-100ms Global Latency:** Pre-rendered HTML & CSS delivered directly from Google's nearest edge Point of Presence (PoP).   
+- **Sub-100ms Global Latency:** Pre-rendered HTML & CSS delivered from Google's nearest edge Point of Presence (PoP).   
 
 </div>
 
