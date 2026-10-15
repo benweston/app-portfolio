@@ -16,6 +16,10 @@
 
 </div>
 
+[![Release](https://img.shields.io/github/v/release/benweston/app-portfolio?color=blue&label=release)](https://github.com/benweston/app-portfolio/releases)
+[![Licence: MIT](https://img.shields.io/badge/Licence-MIT-green.svg)](https://github.com/benweston/app-portfolio/blob/main/LICENSE)
+[![CI](https://github.com/benweston/app-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/benweston/app-portfolio/actions/workflows/ci.yml)
+
 ## Environments
 
 <div align="justify">
