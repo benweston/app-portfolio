@@ -10,15 +10,15 @@
 
 # App - Portfolio ([benweston.site](https://benweston.site/))
 
+[![CI](https://github.com/benweston/app-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/benweston/app-portfolio/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/benweston/app-portfolio?color=blue&label=release)](https://github.com/benweston/app-portfolio/releases)
+[![Licence: MIT](https://img.shields.io/badge/Licence-MIT-green.svg)](https://github.com/benweston/app-portfolio/blob/main/LICENSE)
+
 <div align="justify">
 
 > Personal website engineered with [Astro 5](https://astro.build/) for zero-JS runtime performance, deployed globally across Google's Edge CDN via [Firebase Multisite](https://firebase.google.com/docs/hosting/multisites), and maintained through a state-of-the-art agentic pairing harness powered by [Google Antigravity](https://antigravity.google/).   
 
 </div>
-
-[![Release](https://img.shields.io/github/v/release/benweston/app-portfolio?color=blue&label=release)](https://github.com/benweston/app-portfolio/releases)
-[![Licence: MIT](https://img.shields.io/badge/Licence-MIT-green.svg)](https://github.com/benweston/app-portfolio/blob/main/LICENSE)
-[![CI](https://github.com/benweston/app-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/benweston/app-portfolio/actions/workflows/ci.yml)
 
 ## Environments
 
