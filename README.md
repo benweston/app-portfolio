@@ -20,14 +20,37 @@
 
 </div>
 
+## Architectural Highlights
+
+<div align="justify">
+
+- **Zero Server Runtime:** No backend daemons or server containers sleeping, idling, or waking up.   
+- **Zero Compute Cost:** Served entirely from Google Cloud's global Edge CDN cache.   
+- **Zero Host Maintenance:** No server-side runtime, virtual environments, or container vulnerabilities to patch on the live host.   
+- **Sub-100ms Global Latency:** Pre-rendered HTML, CSS, and Atkinson typography delivered directly from Google's nearest edge Point of Presence (PoP).   
+
+</div>
+
 ## Environments
 
 <div align="justify">
 
-| Environment | Purpose | Target URL |
-| :--- | :--- | :--- |
-| **Live (Production)** | Public portfolio and technical hub | [benweston.site](https://benweston.site/) |
-| **Staging** | Pre-production preview and sign-off | [stage.benweston.site](https://stage.benweston.site/) |
+| Environment | Purpose | Target URL | Upstream Trigger |
+| :--- | :--- | :--- | :--- |
+| **Live (Production)** | Official public portfolio | [benweston.site](https://benweston.site/) | Release tag push (`v*`) |
+| **Staging** | Continuous preview & verification | [stage.benweston.site](https://stage.benweston.site/) | Push / merge to `main` |
+
+</div>
+
+<div align="justify">
+
+## Quick Start
+    
+```bash
+npm install     # Install dependencies
+npm run dev     # Launch local development server at http://localhost:4321
+npm run build   # Build production static assets into dist/
+```
 
 </div>
 
