@@ -170,3 +170,40 @@ When cutting a release (standardised on the [sublime-font-checks](https://github
 - **Asset Boundaries:** Do **not** overwrite, delete, or relocate binary files in `assets/` (e.g. `main-banner.png`) without explicit user permission.
 - **Privacy & Security:** Never include personal email addresses or sensitive credentials in public-facing documentation, wikis, or source code. Always use generic role titles (e.g. *Project Owner*, *Repository Administrator*).
 - **Documentation Preservation:** Maintain documentation integrity. Keep existing comments, licenses, and docstrings intact.
+
+---
+
+## Standardised Issue & Ticket Specification
+
+All issues, user stories, and project board cards MUST strictly follow the exact 4-section structure below. No deviations or ad-hoc formats are permitted. Acceptance criteria represent hard requirements that must be verified prior to promoting any work to Done.
+
+```markdown
+### Overview
+
+[Concise 1–2 sentence statement of purpose, context, and outcome]
+
+### Requirements & Scope
+
+1. **[Area 1]:** [Specific deliverable]
+2. **[Area 2]:** [Specific deliverable]
+3. **[Area 3]:**
+   - **[Sub-item A]:** [Details]
+   - **[Sub-item B]:** [Details]
+4. **[Area 4]:** [Specific deliverable]
+
+### Technical Considerations
+
+- [Styling, architecture, performance, or accessibility constraints]
+- [Theme, framework, or runtime considerations]
+- [Standards compliance (e.g. WCAG 2.1 AA, en-GB)]
+
+---
+
+### Acceptance Criteria
+
+- [ ] Page/feature builds cleanly with `npx astro check` and `npm run build`.
+- [ ] [Verifiable check 2]
+- [ ] [Verifiable check 3]
+- [ ] Deployed and verified on the staging environment (`stage.benweston.site`).
+```
+
