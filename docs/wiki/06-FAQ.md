@@ -8,13 +8,13 @@
 ---
 
 ### Q2: Why doesn't pushing to `main` update the live site?
-**A:** Because **the release tag IS the live site**. A core rule of enterprise release engineering is: *there should never be an unversioned deployment to production*. 
+**A:** Because **the release tag IS the live site**. A core rule of enterprise release engineering is: *there should never be an unversioned deployment to production*.
 If every commit pushed to `main` went straight to live, staging would be rendered useless, and half-finished work or bugs could hit the public domain. Pushing to `main` updates **staging** for verification. Production updates exclusively when an official release tag (`v*`) is published.
 
 ---
 
 ### Q3: What is the difference between a Git Tag and a GitHub Release?
-**A:** 
+**A:**
 - A **Git Tag** (`git tag v0.2.0`) is a native Git pointer marking a specific commit in history. Pushing this tag triggers the GitHub Action to deploy to `benweston.site`.
 - A **GitHub Release** is a GitHub platform feature built on top of the git tag that attaches rich, structured Markdown release notes (`## Highlights`, `## Key Focus Areas`, `## Next Steps`), changelogs, and source code archives.
 - When you draft and publish a release on GitHub, it automatically creates the tag and fires the deployment action simultaneously.
@@ -27,7 +27,7 @@ If every commit pushed to `main` went straight to live, staging would be rendere
 ---
 
 ### Q5: Why is the primary site ID `app-portfolio-e0f7f` instead of `app-portfolio-prod`?
-**A:** In Google Cloud and Firebase, Project IDs and primary default hosting site IDs are globally unique and immutable once created. Google Cloud appended the random hash `-e0f7f` during initial creation. 
+**A:** In Google Cloud and Firebase, Project IDs and primary default hosting site IDs are globally unique and immutable once created. Google Cloud appended the random hash `-e0f7f` during initial creation.
 To maintain naming elegance and consistency, Firebase uses **Deploy Targets** (`live` and `stage`). In your CLI and workflows, you only ever interact with `hosting:live` and `hosting:stage`, and public visitors only ever see `benweston.site` and `stage.benweston.site`.
 
 ---

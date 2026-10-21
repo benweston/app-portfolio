@@ -1,0 +1,515 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE_SUBTITLE, SITE_TITLE } from '../consts';
+
+const pageTitle = `${SITE_TITLE} | Projects`;
+const pageDescription =
+	'Categorised portfolio of open-source repositories, Enterprise Linux administration guides, developer productivity tooling, and Google Cloud infrastructure sandboxes.';
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+	<style>
+		/* Page Header */
+		.page-header {
+			margin-bottom: 2.5rem;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 0.25rem;
+			letter-spacing: -0.02em;
+		}
+
+		.page-subtitle {
+			font-size: 1.2rem;
+			color: var(--accent);
+			font-weight: 700;
+		}
+
+		.page-lead {
+			margin-top: 1rem;
+			font-size: 1.1rem;
+			line-height: 1.7;
+			color: rgb(var(--gray-dark));
+		}
+
+		/* Category Sections */
+		section {
+			margin-top: 3rem;
+		}
+
+		.section-header {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: baseline;
+			gap: 0.5rem 1rem;
+			margin-bottom: 0.75rem;
+			border-bottom: 2px solid var(--border-color);
+			padding-bottom: 0.5rem;
+		}
+
+		.section-header h2 {
+			margin: 0;
+			font-size: 1.65rem;
+		}
+
+		.section-intro {
+			font-size: 1rem;
+			line-height: 1.65;
+			color: rgb(var(--gray-dark));
+			margin: 0 0 1.5rem 0;
+		}
+
+		/* Responsive Card Grid */
+		.projects-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 1.25rem;
+		}
+
+		.project-card {
+			background: var(--bg-surface);
+			border: 1px solid var(--border-color);
+			border-radius: 10px;
+			padding: 1.35rem;
+			text-decoration: none;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease,
+				border-color 0.15s ease,
+				background-color 0.2s ease;
+		}
+
+		.project-card:hover,
+		.project-card:focus-visible {
+			transform: translateY(-2px);
+			box-shadow: var(--box-shadow);
+			border-color: var(--accent);
+			outline: none;
+		}
+
+		.card-top {
+			margin-bottom: 1rem;
+		}
+
+		.card-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			gap: 0.5rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.project-card h3 {
+			font-size: 1.15rem;
+			margin: 0;
+			color: rgb(var(--black));
+			line-height: 1.3;
+		}
+
+		.external-arrow {
+			color: var(--accent);
+			font-weight: 700;
+			font-size: 1rem;
+			flex-shrink: 0;
+		}
+
+		.repo-slug {
+			font-size: 0.8rem;
+			font-weight: 700;
+			color: var(--accent);
+			margin-bottom: 0.65rem;
+			display: block;
+		}
+
+		.project-card p {
+			font-size: 0.95rem;
+			line-height: 1.55;
+			margin: 0;
+			color: rgb(var(--gray-dark));
+		}
+
+		.tag-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.tag {
+			font-size: 0.75rem;
+			background-color: rgb(var(--gray-light));
+			color: rgb(var(--gray-dark));
+			border: 1px solid var(--border-color);
+			padding: 0.2rem 0.55rem;
+			border-radius: 4px;
+			font-weight: 700;
+		}
+
+		/* Call to Action Section */
+		.cta-section {
+			margin-top: 3.5rem;
+			padding-top: 2rem;
+			border-top: 1px solid var(--border-color);
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.action-buttons {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.75rem;
+		}
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.6rem 1.2rem;
+			border-radius: 8px;
+			font-weight: 700;
+			text-decoration: none;
+			font-size: 0.95rem;
+			transition: background-color 0.2s ease, transform 0.1s ease;
+		}
+
+		.btn-primary {
+			background-color: var(--accent);
+			color: #fff;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--accent-dark);
+			color: #fff;
+		}
+
+		.btn-secondary {
+			background-color: rgb(var(--gray-light));
+			color: rgb(var(--black));
+			border: 1px solid var(--border-color);
+		}
+
+		.btn-secondary:hover {
+			background-color: var(--border-color);
+			color: rgb(var(--black));
+		}
+
+		@media (max-width: 640px) {
+			.projects-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.page-title {
+				font-size: 2rem;
+			}
+
+			.action-buttons {
+				width: 100%;
+				flex-direction: column;
+			}
+
+			.btn {
+				justify-content: center;
+			}
+		}
+	</style>
+
+	<div class="page-header">
+		<h1 class="page-title">Projects</h1>
+		<div class="page-subtitle">{SITE_SUBTITLE}</div>
+		<p class="page-lead">
+			Open-source projects, automation toolchains, and infrastructure sandboxes engineered across
+			Enterprise Linux, developer workflows, and Google Cloud.
+		</p>
+	</div>
+
+	<!-- Pillar 1: Linux & Systems -->
+	<section aria-labelledby="linux-systems-heading">
+		<div class="section-header">
+			<h2 id="linux-systems-heading">Linux & Systems</h2>
+		</div>
+		<p class="section-intro">
+			System administration runbooks, workstation tuning guides, and operational configurations
+			across Enterprise Linux and Fedora environments.
+		</p>
+
+		<div class="projects-grid">
+			<a
+				href="https://github.com/benweston/Fedora-Linux-System-Administration"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Fedora Linux Administration</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/Fedora-Linux-System-Administration</span>
+					<p>Fedora Linux System Administration, published by Packt.</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Fedora</li>
+					<li class="tag">Hardening</li>
+					<li class="tag">RHEL Family</li>
+					<li class="tag">Sysadmin</li>
+				</ul>
+			</a>
+
+			<a
+				href="https://github.com/benweston/fedora-post-install-guide"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Fedora Post-Install Guide</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/fedora-post-install-guide</span>
+					<p>Things to do after installing Fedora 43.</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Configuration</li>
+					<li class="tag">Fedora</li>
+					<li class="tag">Linux</li>
+					<li class="tag">Workstation</li>
+				</ul>
+			</a>
+		</div>
+	</section>
+
+	<!-- Pillar 2: Software & DX -->
+	<section aria-labelledby="software-dx-heading">
+		<div class="section-header">
+			<h2 id="software-dx-heading">Software & DX</h2>
+		</div>
+		<p class="section-intro">
+			Developer experience (dx-*) utilities, shell automation scripts, reproducible workstation
+			dotfiles, and editor tooling designed to eliminate daily toil.
+		</p>
+
+		<div class="projects-grid">
+			<a
+				href="https://github.com/benweston/dx-scripts"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Developer Workflows (dx-scripts)</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/dx-scripts</span>
+					<p>
+						A collection of helper scripts for infrastructure, development, and automation tasks.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Automation</li>
+					<li class="tag">Bash &amp; Shell</li>
+					<li class="tag">DevEx</li>
+					<li class="tag">Python</li>
+				</ul>
+			</a>
+
+			<a
+				href="https://github.com/benweston/dx-dotfiles"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Workstation Dotfiles (dx-dotfiles)</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/dx-dotfiles</span>
+					<p>
+						Developer environment configuration, including shell setup, editor preferences, and
+						tooling customisations.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">DevEx</li>
+					<li class="tag">Dotfiles</li>
+					<li class="tag">Shell</li>
+					<li class="tag">Workstation</li>
+				</ul>
+			</a>
+
+			<a
+				href="https://github.com/benweston/dx-templates"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Project Templates (dx-templates)</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/dx-templates</span>
+					<p>
+						Reusable Markdown reference templates, advanced formatting patterns, and repository
+						scaffolding for consistent technical documentation.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Documentation</li>
+					<li class="tag">Markdown</li>
+					<li class="tag">Scaffolding</li>
+					<li class="tag">Templates</li>
+				</ul>
+			</a>
+
+			<a
+				href="https://github.com/benweston/sublime-font-checks"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Sublime Font Checks</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/sublime-font-checks</span>
+					<p>
+						A visual testbed and typography sandbox for evaluating monospace font rendering, glyph
+						legibility, operator ligatures, and syntax colour schemes in Sublime Text.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">DevEx</li>
+					<li class="tag">Monospace</li>
+					<li class="tag">Sublime Text</li>
+					<li class="tag">Typography</li>
+				</ul>
+			</a>
+		</div>
+	</section>
+
+	<!-- Pillar 3: Cloud & Architecture -->
+	<section aria-labelledby="cloud-arch-heading">
+		<div class="section-header">
+			<h2 id="cloud-arch-heading">Cloud & Architecture</h2>
+		</div>
+		<p class="section-intro">
+			Ephemeral cloud sandboxes, reusable Infrastructure as Code modules, and edge-delivered web
+			architectures engineered across Google Cloud.
+		</p>
+
+		<div class="projects-grid">
+			<a
+				href="https://github.com/benweston/cloud-sandbox"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Cloud Sandbox</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/cloud-sandbox</span>
+					<p>
+						Ephemeral cloud infrastructure and sandbox environments for experimentation and
+						learning.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Google Cloud</li>
+					<li class="tag">IaC</li>
+					<li class="tag">Sandbox</li>
+					<li class="tag">Terraform</li>
+				</ul>
+			</a>
+
+			<a
+				href="https://github.com/benweston/cloud-templates"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Cloud Templates</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/cloud-templates</span>
+					<p>
+						Reusable Infrastructure as Code modules, reference architectures, and standardised
+						deployment patterns for Google Cloud.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Architecture</li>
+					<li class="tag">Containers</li>
+					<li class="tag">Google Cloud</li>
+					<li class="tag">Terraform</li>
+				</ul>
+			</a>
+
+			<a
+				href="https://github.com/benweston/app-portfolio"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="project-card"
+			>
+				<div class="card-top">
+					<div class="card-header">
+						<h3>Personal Portfolio (benweston.site)</h3>
+						<span class="external-arrow" aria-hidden="true">↗</span>
+					</div>
+					<span class="repo-slug">benweston/app-portfolio</span>
+					<p>
+						Personal portfolio showcasing projects, technical writing, and professional experience.
+					</p>
+				</div>
+				<ul class="tag-list" aria-label="Technologies">
+					<li class="tag">Astro</li>
+					<li class="tag">Firebase Hosting</li>
+					<li class="tag">GitHub Actions</li>
+					<li class="tag">Google Cloud</li>
+				</ul>
+			</a>
+		</div>
+	</section>
+
+	<div class="cta-section">
+		<a href="/" class="btn btn-secondary">← Back to Home</a>
+		<div class="action-buttons">
+			<a
+				href="https://github.com/benweston"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-primary"
+			>
+				GitHub Profile ↗
+			</a>
+			<a
+				href="https://www.linkedin.com/in/westonb26918/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-secondary"
+			>
+				LinkedIn Profile ↗
+			</a>
+		</div>
+	</div>
+</PageLayout>

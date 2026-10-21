@@ -31,6 +31,23 @@ The site uses Firebase Multisite within Google Cloud project `app-portfolio-e0f7
 | **Local Dev** | N/A | N/A | `http://localhost:4321` | `npm run dev` |
 | **Staging** | `stage` | `app-portfolio-stage` | [stage.benweston.site](https://stage.benweston.site/) | Any push or merge to `main` |
 | **Live (Production)** | `live` | `app-portfolio-e0f7f` | [benweston.site](https://benweston.site/) | Release tag push (`v*`) |
+| **Blog (Decoupled)** | External | Hashnode Edge | [blog.benweston.site](https://blog.benweston.site/) | Git push to `benweston/blog-source` |
+
+### Decoupled Blog Architecture (`blog.benweston.site`)
+
+The technical writing hub is intentionally decoupled from `app-portfolio` on its own dedicated subdomain (`blog.benweston.site`), backed by a two-way GitHub pipeline:
+
+1. **Git-Driven Publishing & Backup:**
+   - **Outbound Source (`benweston/blog-source`):** Markdown articles with YAML frontmatter are authored in Git and published automatically to Hashnode via GitHub Actions.
+   - **Inbound Backup (`benweston/blog-backup`):** Hashnode's GitHub integration synchronises published posts back to a dedicated backup repository.
+2. **Edge Redirection (`/blog`):**
+   - `firebase.json` configures an HTTP `301` edge redirect for `/blog` and `/blog/**` pointing to `https://blog.benweston.site` on both `live` and `stage` hosting targets.
+   - `astro.config.mjs` mirrors this `301` redirect for `/blog` during local development (`npm run dev`).
+3. **Squarespace DNS Configuration:**
+   - **`CNAME` Record:** Host `blog` $\rightarrow$ `hashnode.network`.
+   - **`TXT` Verification Record:** Host `_vercel` $\rightarrow$ `vc-domain-verify=blog.benweston.site,...` (verifies domain ownership on Hashnode's underlying edge router).
+4. **Future Transition Path (`app-blog`):**
+   - Because all articles live as standard Markdown with YAML frontmatter in `blog-source` and `blog-backup`, migrating to a self-hosted Astro application (`app-blog` on Firebase Hosting) requires zero content rewriting — only repointing the `blog` DNS record to a new Firebase Hosting target.
 
 ---
 

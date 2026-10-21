@@ -4,13 +4,47 @@
       "target": "live",
       "public": "dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true
+      "cleanUrls": true,
+      "redirects": [
+        {
+          "source": "/home",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/blog",
+          "destination": "https://blog.benweston.site",
+          "type": 301
+        },
+        {
+          "source": "/blog/**",
+          "destination": "https://blog.benweston.site",
+          "type": 301
+        }
+      ]
     },
     {
       "target": "stage",
       "public": "dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true
+      "cleanUrls": true,
+      "redirects": [
+        {
+          "source": "/home",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/blog",
+          "destination": "https://blog.benweston.site",
+          "type": 301
+        },
+        {
+          "source": "/blog/**",
+          "destination": "https://blog.benweston.site",
+          "type": 301
+        }
+      ]
     }
   ]
 }

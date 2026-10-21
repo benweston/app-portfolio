@@ -1,0 +1,258 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE_SUBTITLE, SITE_TITLE } from '../consts';
+import aboutPhoto from '../assets/about-photo.jpg';
+
+const pageTitle = `${SITE_TITLE} | About`;
+const pageDescription =
+	'Detailed technical background, engineering ethos, and core competencies across Enterprise Linux, systems tooling, and Google Cloud architecture.';
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+	<style>
+		/* Page Header */
+		.page-header {
+			margin-bottom: 2rem;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 0.25rem;
+			letter-spacing: -0.02em;
+		}
+
+		.page-subtitle {
+			font-size: 1.2rem;
+			color: var(--accent);
+			font-weight: 700;
+		}
+
+		/* Hero Banner & Lead */
+		.about-hero {
+			display: flex;
+			flex-direction: column;
+			gap: 1.75rem;
+			margin-bottom: 3rem;
+		}
+
+		.about-photo-frame {
+			margin: 0;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: var(--box-shadow);
+			border: 1px solid var(--border-color);
+			background: var(--bg-surface);
+		}
+
+		.about-photo {
+			width: 100%;
+			height: auto;
+			max-height: 440px;
+			display: block;
+			object-fit: cover;
+			object-position: center 28%;
+		}
+
+		/* Content Sections */
+		section {
+			margin-top: 3rem;
+		}
+
+		.section-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			margin-bottom: 1.25rem;
+			border-bottom: 2px solid var(--border-color);
+			padding-bottom: 0.5rem;
+		}
+
+		.section-header h2 {
+			margin: 0;
+			font-size: 1.65rem;
+		}
+
+		.prose-block p {
+			font-size: 1.05rem;
+			line-height: 1.7;
+			color: rgb(var(--gray-dark));
+			margin-bottom: 1.25rem;
+		}
+
+		/* Call to Action Section */
+		.cta-section {
+			margin-top: 3.5rem;
+			padding-top: 2rem;
+			border-top: 1px solid var(--border-color);
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.action-buttons {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.75rem;
+		}
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.6rem 1.2rem;
+			border-radius: 8px;
+			font-weight: 700;
+			text-decoration: none;
+			font-size: 0.95rem;
+			transition: background-color 0.2s ease, transform 0.1s ease;
+		}
+
+		.btn-primary {
+			background-color: var(--accent);
+			color: #fff;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--accent-dark);
+			color: #fff;
+		}
+
+		.btn-secondary {
+			background-color: rgb(var(--gray-light));
+			color: rgb(var(--black));
+			border: 1px solid var(--border-color);
+		}
+
+		.btn-secondary:hover {
+			background-color: var(--border-color);
+			color: rgb(var(--black));
+		}
+
+		@media (max-width: 480px) {
+			.page-title {
+				font-size: 2rem;
+			}
+
+			.action-buttons {
+				width: 100%;
+				flex-direction: column;
+			}
+
+			.btn {
+				justify-content: center;
+			}
+		}
+	</style>
+
+	<div class="page-header">
+		<h1 class="page-title">About Me</h1>
+		<div class="page-subtitle">{SITE_SUBTITLE}</div>
+	</div>
+
+	<div class="about-hero">
+		<figure class="about-photo-frame">
+			<Image
+				src={aboutPhoto}
+				alt="Ben Weston at Warwick Castle"
+				class="about-photo"
+				width={1200}
+				loading="eager"
+			/>
+		</figure>
+	</div>
+
+	<section aria-labelledby="early-background-heading">
+		<div class="section-header">
+			<h2 id="early-background-heading">Early Background</h2>
+		</div>
+		<div class="prose-block">
+			<p>
+				My passion for technology started in early childhood, when I bought a 2nd hand <a
+					href="https://en.wikipedia.org/wiki/ZX_Spectrum"
+					target="_blank"
+					rel="noopener noreferrer">Sinclair ZX Spectrum+</a
+				>. Inbetween playing games I learned some basics of programming through the <a
+					href="https://en.wikipedia.org/wiki/Sinclair_BASIC"
+					target="_blank"
+					rel="noopener noreferrer">Sinclair BASIC</a
+				> language, mainly comprising very simple text adventures and copying out by hand some of the
+				programs provided in Spectrum magazines of the time. Fast forward ~20 years and I was
+				building my own gaming computers, which was my primary passion in life.
+			</p>
+			<p>
+				Eventually I began experimenting with servers and developed an interest in <a
+					href="https://en.wikipedia.org/wiki/Linux"
+					target="_blank"
+					rel="noopener noreferrer">Linux</a
+				>, starting as so many people did with <a
+					href="https://ubuntu.com/server"
+					target="_blank"
+					rel="noopener noreferrer">Ubuntu</a
+				>. I ran a dual home lab where <a
+					href="https://www.virtualbox.org/"
+					target="_blank"
+					rel="noopener noreferrer">Oracle VM Virtualbox</a
+				> was my local development environment, breaking &amp; building, breaking some more then
+				rebuilding, until settling on a solution that I then implemented on small footprint physical
+				rack servers because metal was as much my life at that point as the software.
+			</p>
+		</div>
+	</section>
+
+	<section aria-labelledby="journey-heading">
+		<div class="section-header">
+			<h2 id="journey-heading">Engineering Journey</h2>
+		</div>
+		<div class="prose-block">
+			<p>
+				In October 2008 I got my first big break in tech: I landed the position of Technical Support
+				Engineer at <a
+					href="https://link.springer.com/brands/bmc"
+					target="_blank"
+					rel="noopener noreferrer">BioMed Central</a
+				>, a groundbreaking STEM publisher and major player in the Open Access publishing movement.
+				Over the years I developed my skills and career, moving into increasingly technical
+				engineering positions until I landed where I am today, Platform Engineer at <a
+					href="https://www.springernature.com/gp"
+					target="_blank"
+					rel="noopener noreferrer">Springer Nature</a
+				>.
+			</p>
+			<p>
+				I'm a voracious learner, having earned numerous IT certifications and have sat &amp;
+				completed more than 50 online courses. In addition to numerous ongoing personal projects I'm
+				currently working towards a Master's Degree in Computer Science at the highly prestigious <a
+					href="https://www.keele.ac.uk/"
+					target="_blank"
+					rel="noopener noreferrer">Keele University</a
+				>.
+			</p>
+		</div>
+	</section>
+
+	<div class="cta-section">
+		<a href="/" class="btn btn-secondary">← Back to Home</a>
+		<div class="action-buttons">
+			<a
+				href="https://github.com/benweston"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-primary"
+			>
+				GitHub Profile ↗
+			</a>
+			<a
+				href="https://www.linkedin.com/in/westonb26918/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-secondary"
+			>
+				LinkedIn Profile ↗
+			</a>
+		</div>
+	</div>
+</PageLayout>

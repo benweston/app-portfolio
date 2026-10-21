@@ -163,6 +163,7 @@ When cutting a release (standardised on the [sublime-font-checks](https://github
 
 ## Coding Standards & Agent Guidelines
 
+- **Git, Deployment & Ticket Closure Consent (CRITICAL):** Agents **must never** execute `git commit`, `git push`, `git tag`, `firebase deploy`, or close GitHub issues (including using `closes #<n>` in commit messages) without explicit prior instruction and consent from the user for that specific action. Because pushing to `main` automatically deploys to `stage.benweston.site` (and pushing `v*` tags deploys to `benweston.site`), all work must remain in the local working tree unless the user explicitly asks to commit, push, or deploy, and tickets remain open until signed off on live.
 - **Language & Locale:** Standardise on British English (en-GB) for all copy, documentation, and user-facing text (e.g. *optimised*, *containerised*, *virtualisation*, *colour*). Document root must set `<html lang="en-GB">`.
 - **Google Cloud Naming:** Use "Google Cloud", never "Google Cloud Platform" or "GCP".
 - **Semantic & Accessible HTML:** Adhere to WCAG 2.1 AA accessibility guidelines. Use semantic tags (`<header>`, `<main>`, `<article>`, `<nav>`, `<aside>`, `<footer>`). Ensure high contrast and appropriate `alt` attributes.
@@ -206,4 +207,3 @@ All issues, user stories, and project board cards MUST strictly follow the exact
 - [ ] [Verifiable check 3]
 - [ ] Deployed and verified on the staging environment (`stage.benweston.site`).
 ```
-

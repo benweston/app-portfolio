@@ -1,14 +1,54 @@
 ---
 import { SITE_TITLE } from '../consts';
 import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header>
-	<nav>
+	<nav aria-label="Main navigation">
 		<h2>
 			<a href="/">{SITE_TITLE}</a>
 		</h2>
 		<div class="nav-end">
+			<div class="nav-links">
+				<a
+					href="/"
+					class:list={[{ active: pathname === '/' }]}
+					aria-current={pathname === '/' ? 'page' : undefined}
+				>
+					Home
+				</a>
+				<a
+					href="/about"
+					class:list={[{ active: pathname === '/about' }]}
+					aria-current={pathname === '/about' ? 'page' : undefined}
+				>
+					About
+				</a>
+				<a
+					href="/experience"
+					class:list={[{ active: pathname === '/experience' }]}
+					aria-current={pathname === '/experience' ? 'page' : undefined}
+				>
+					Experience
+				</a>
+				<a
+					href="/projects"
+					class:list={[{ active: pathname === '/projects' }]}
+					aria-current={pathname === '/projects' ? 'page' : undefined}
+				>
+					Projects
+				</a>
+				<a
+					href="https://blog.benweston.site"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="Blog (opens external site in a new tab)"
+				>
+					Blog ↗
+				</a>
+			</div>
 			<ThemeToggle />
 		</div>
 	</nav>
@@ -34,16 +74,60 @@ import ThemeToggle from './ThemeToggle.astro';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 960px;
+		flex-wrap: wrap;
+		gap: 0.75rem 1rem;
+		max-width: 1280px;
 		margin: 0 auto;
 	}
 	.nav-end {
 		display: flex;
 		align-items: center;
+		gap: 1.25rem;
+	}
+	.nav-links {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.25rem 1rem;
+	}
+	.nav-links a {
+		text-decoration: none;
+		color: rgb(var(--gray-dark));
+		font-size: 0.95rem;
+		font-weight: 700;
+		padding: 0.25rem 0.1rem;
+		border-bottom: 2px solid transparent;
+		transition: color 0.15s ease, border-color 0.15s ease;
+	}
+	.nav-links a:hover,
+	.nav-links a.active {
+		color: var(--accent);
+	}
+	.nav-links a.active {
+		border-bottom-color: var(--accent);
 	}
 	@media (max-width: 720px) {
 		header {
 			padding: 0.75em 0.75em;
+		}
+		.nav-end {
+			gap: 0.75rem;
+		}
+		.nav-links {
+			gap: 0.25rem 0.75rem;
+		}
+		.nav-links a {
+			font-size: 0.9rem;
+		}
+	}
+	@media (max-width: 480px) {
+		nav {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.nav-end {
+			width: 100%;
+			justify-content: space-between;
 		}
 	}
 </style>

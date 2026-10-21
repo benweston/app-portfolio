@@ -45,7 +45,7 @@
 <div align="justify">
 
 ## Quick Start
-    
+
 ```bash
 npm install     # Install dependencies
 npm run dev     # Launch local development server at http://localhost:4321

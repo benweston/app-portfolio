@@ -1,0 +1,744 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE_SUBTITLE, SITE_TITLE } from '../consts';
+import lpiLinuxEssentials from '../../assets/icons/linux-essentials-certificate.png';
+
+const pageTitle = `${SITE_TITLE} | Experience`;
+const pageDescription =
+	'Professional career history, platform and cloud engineering roles, and academic background of Ben Weston.';
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+	<style>
+		/* Page Header */
+		.page-header {
+			margin-bottom: 2.5rem;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 0.25rem;
+			letter-spacing: -0.02em;
+		}
+
+		.page-subtitle {
+			font-size: 1.2rem;
+			color: var(--accent);
+			font-weight: 700;
+		}
+
+		.page-lead {
+			margin-top: 1rem;
+			font-size: 1.1rem;
+			line-height: 1.7;
+			color: rgb(var(--gray-dark));
+		}
+
+		/* Content Sections */
+		section {
+			margin-top: 3rem;
+		}
+
+		.section-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			margin-bottom: 1.75rem;
+			border-bottom: 2px solid var(--border-color);
+			padding-bottom: 0.5rem;
+		}
+
+		.section-header h2 {
+			margin: 0;
+			font-size: 1.65rem;
+		}
+
+		/* Organisation Block */
+		.org-group {
+			background: var(--bg-surface);
+			border: 1px solid var(--border-color);
+			border-radius: 12px;
+			padding: 1.5rem 1.75rem;
+			margin-bottom: 2rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 4%);
+			transition: background-color 0.2s ease, border-color 0.2s ease;
+		}
+
+		.org-group:last-child {
+			margin-bottom: 0;
+		}
+
+		.org-header {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: baseline;
+			gap: 0.5rem 1rem;
+			padding-bottom: 1rem;
+			margin-bottom: 1.5rem;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		.org-name {
+			font-size: 1.4rem;
+			font-weight: 700;
+			margin: 0;
+			color: rgb(var(--black));
+		}
+
+		.org-meta {
+			font-size: 0.9rem;
+			color: rgb(var(--gray-dark));
+			font-weight: 700;
+		}
+
+		/* Vertical Timeline */
+		.timeline {
+			position: relative;
+			list-style: none;
+			margin: 0;
+			padding: 0 0 0 1.75rem;
+		}
+
+		.timeline::before {
+			content: '';
+			position: absolute;
+			top: 0.45rem;
+			bottom: 0.45rem;
+			left: 0.45rem;
+			width: 2px;
+			background-color: var(--border-color);
+		}
+
+		.timeline-item {
+			position: relative;
+			padding-bottom: 2rem;
+		}
+
+		.timeline-item:last-child {
+			padding-bottom: 0;
+		}
+
+		.timeline-marker {
+			position: absolute;
+			left: -1.75rem;
+			top: 0.35rem;
+			width: 1rem;
+			height: 1rem;
+			border-radius: 50%;
+			background-color: var(--bg-surface);
+			border: 3px solid rgb(var(--gray));
+			box-sizing: border-box;
+			z-index: 1;
+		}
+
+		.timeline-item.current .timeline-marker {
+			border-color: var(--accent);
+			background-color: var(--accent);
+			box-shadow: 0 0 0 3px rgba(35, 55, 255, 0.15);
+		}
+
+		:global([data-theme='dark']) .timeline-item.current .timeline-marker {
+			box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+		}
+
+		.role-header {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: baseline;
+			gap: 0.35rem 1rem;
+			margin-bottom: 0.65rem;
+		}
+
+		.role-title {
+			font-size: 1.15rem;
+			font-weight: 700;
+			margin: 0;
+			color: rgb(var(--black));
+		}
+
+		.role-date {
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: rgb(var(--gray-dark));
+			background-color: rgb(var(--gray-light));
+			border: 1px solid var(--border-color);
+			padding: 0.15rem 0.6rem;
+			border-radius: 999px;
+			white-space: nowrap;
+		}
+
+		.timeline-item.current .role-date,
+		.education-card.current .role-date,
+		.cert-card-horizontal.current .role-date {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+
+		.achievements {
+			margin: 0.5rem 0 0.85rem 0;
+			padding-left: 1.25rem;
+			color: rgb(var(--gray-dark));
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.achievements li {
+			margin-bottom: 0.35rem;
+		}
+
+		.achievements li:last-child {
+			margin-bottom: 0;
+		}
+
+		.tag-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+			list-style: none;
+			padding: 0;
+			margin: 0.75rem 0 0 0;
+		}
+
+		.tag {
+			font-size: 0.75rem;
+			background-color: rgb(var(--gray-light));
+			color: rgb(var(--gray-dark));
+			border: 1px solid var(--border-color);
+			padding: 0.2rem 0.55rem;
+			border-radius: 4px;
+			font-weight: 700;
+		}
+
+		/* Education Card */
+		.education-card {
+			background: var(--bg-surface);
+			border: 1px solid var(--border-color);
+			border-radius: 12px;
+			padding: 1.5rem 1.75rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 4%);
+			transition: background-color 0.2s ease, border-color 0.2s ease;
+		}
+
+		.education-header {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: flex-start;
+			gap: 0.5rem 1rem;
+			padding-bottom: 0.85rem;
+			margin-bottom: 1rem;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		.education-institution {
+			font-size: 1.4rem;
+			font-weight: 700;
+			margin: 0 0 0.25rem 0;
+			color: rgb(var(--black));
+		}
+
+		.education-degree {
+			font-size: 1.05rem;
+			font-weight: 700;
+			color: var(--accent);
+			margin: 0;
+		}
+
+		.education-card .achievements {
+			margin: 0 0 1rem 0;
+		}
+
+		.education-card .achievements strong {
+			color: rgb(var(--black));
+		}
+
+		/* Certifications Section */
+		.cert-card-horizontal {
+			display: flex;
+			align-items: center;
+			gap: 1.5rem;
+			background: var(--bg-surface);
+			border: 1px solid var(--border-color);
+			border-radius: 12px;
+			padding: 1.35rem 1.6rem;
+			text-decoration: none;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 4%);
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease,
+				border-color 0.15s ease,
+				background-color 0.2s ease;
+		}
+
+		.cert-card-horizontal:hover,
+		.cert-card-horizontal:focus-visible {
+			transform: translateY(-2px);
+			box-shadow: var(--box-shadow);
+			border-color: var(--accent);
+			outline: none;
+		}
+
+		.cert-badge-link {
+			flex-shrink: 0;
+			display: block;
+		}
+
+		.cert-badge-img {
+			width: 110px;
+			height: 110px;
+			border-radius: 8px;
+			display: block;
+			object-fit: contain;
+		}
+
+		.cert-content {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.cert-header-row {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: baseline;
+			gap: 0.5rem 1rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.cert-title {
+			font-size: 1.3rem;
+			font-weight: 700;
+			margin: 0;
+			color: rgb(var(--black));
+		}
+
+		.cert-issuer {
+			font-size: 1rem;
+			font-weight: 700;
+			color: var(--accent);
+			margin: 0 0 0.5rem 0;
+		}
+
+		.cert-desc {
+			font-size: 0.92rem;
+			line-height: 1.55;
+			color: rgb(var(--gray-dark));
+			margin: 0 0 0.75rem 0;
+		}
+
+		/* Call to Action Section */
+		.cta-section {
+			margin-top: 3.5rem;
+			padding-top: 2rem;
+			border-top: 1px solid var(--border-color);
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.action-buttons {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.75rem;
+		}
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.6rem 1.2rem;
+			border-radius: 8px;
+			font-weight: 700;
+			text-decoration: none;
+			font-size: 0.95rem;
+			transition: background-color 0.2s ease, transform 0.1s ease;
+		}
+
+		.btn-primary {
+			background-color: var(--accent);
+			color: #fff;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--accent-dark);
+			color: #fff;
+		}
+
+		.btn-secondary {
+			background-color: rgb(var(--gray-light));
+			color: rgb(var(--black));
+			border: 1px solid var(--border-color);
+		}
+
+		.btn-secondary:hover {
+			background-color: var(--border-color);
+			color: rgb(var(--black));
+		}
+
+		@media (max-width: 640px) {
+			.org-group,
+			.education-card {
+				padding: 1.25rem;
+			}
+
+			.cert-card-horizontal {
+				flex-direction: column;
+				align-items: flex-start;
+				padding: 1.25rem;
+			}
+
+			.role-header,
+			.education-header {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 0.35rem;
+			}
+
+			.timeline {
+				padding-left: 1.5rem;
+			}
+
+			.timeline::before {
+				left: 0.35rem;
+			}
+
+			.timeline-marker {
+				left: -1.5rem;
+				width: 0.85rem;
+				height: 0.85rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.page-title {
+				font-size: 2rem;
+			}
+
+			.org-group,
+			.education-card {
+				padding: 1rem;
+			}
+
+			.action-buttons {
+				width: 100%;
+				flex-direction: column;
+			}
+
+			.btn {
+				justify-content: center;
+			}
+		}
+	</style>
+
+	<div class="page-header">
+		<h1 class="page-title">Experience</h1>
+		<div class="page-subtitle">{SITE_SUBTITLE}</div>
+		<p class="page-lead">
+			Nearly two decades of experience progressing from technical support into DevOps, cloud, and
+			platform engineering across enterprise publishing and technology organisations.
+		</p>
+	</div>
+
+	<section aria-labelledby="education-heading">
+		<div class="section-header">
+			<h2 id="education-heading">Education</h2>
+		</div>
+
+		<article class="education-card current">
+			<div class="education-header">
+				<div>
+					<h3 class="education-institution">Keele University</h3>
+					<p class="education-degree">Master of Science (MSc), Computer Science</p>
+				</div>
+				<span class="role-date">Apr 2025 – Jun 2027</span>
+			</div>
+			<ul class="achievements">
+				<li>
+					<strong>Key Project:</strong> Currently developing an open-source application delivery
+					platform utilising a highly modular 'hub &amp; spoke' scalable multi-repo design with
+					significant levels of automation that will build, test, secure, and deliver production
+					software.
+				</li>
+				<li>
+					<strong>Academic Focus:</strong> Currently specialising in Linux &amp; shell languages,
+					Python &amp; object-oriented design, developer tooling, and infrastructure.
+				</li>
+			</ul>
+			<ul class="tag-list" aria-label="MSc Modules">
+				<li class="tag">Advanced Programming Techniques</li>
+				<li class="tag">Design and Programming</li>
+				<li class="tag">Fundamentals of Computer Science</li>
+				<li class="tag">MSc Project</li>
+				<li class="tag">MSc Project Literature Review and Problem Formulation</li>
+				<li class="tag">Research and Consultancy Skills</li>
+				<li class="tag">Software Engineering with Group Project</li>
+				<li class="tag">Statistical Data Analytics and Databases</li>
+				<li class="tag">User Interaction Design</li>
+				<li class="tag">Web Technologies and Security</li>
+			</ul>
+		</article>
+	</section>
+
+	<section aria-labelledby="certifications-heading">
+		<div class="section-header">
+			<h2 id="certifications-heading">Certifications</h2>
+		</div>
+
+		<a
+			href="https://www.credly.com/badges/22bccbcc-ac8d-4aeb-8d26-5c92ffa414ff/public_url"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="cert-card-horizontal current"
+		>
+			<div class="cert-badge-link">
+				<Image
+					src={lpiLinuxEssentials}
+					alt="Linux Professional Institute - Linux Essentials Certification Badge"
+					class="cert-badge-img"
+					width={220}
+					height={220}
+				/>
+			</div>
+			<div class="cert-content">
+				<div class="cert-header-row">
+					<h3 class="cert-title">Linux Professional Institute (LPI)</h3>
+					<span class="role-date">Verify on Credly ↗</span>
+				</div>
+				<p class="cert-issuer">Linux Essentials</p>
+				<p class="cert-desc">
+					Foundational certificate validating core Linux command-line operations, system
+					architecture, open-source software licensing, shell scripting, and security permissions.
+				</p>
+				<ul class="tag-list" aria-label="Certification topics">
+					<li class="tag">Linux CLI</li>
+					<li class="tag">Security &amp; Permissions</li>
+					<li class="tag">Shell Scripting</li>
+					<li class="tag">System Architecture</li>
+				</ul>
+			</div>
+		</a>
+	</section>
+
+	<section aria-labelledby="career-heading">
+		<div class="section-header">
+			<h2 id="career-heading">Professional Timeline</h2>
+		</div>
+
+		<!-- Springer Nature -->
+		<article class="org-group" aria-label="Springer Nature career history">
+			<div class="org-header">
+				<h3 class="org-name">Springer Nature</h3>
+				<div class="org-meta">Full-time · London, England, United Kingdom</div>
+			</div>
+
+			<ol class="timeline">
+				<li class="timeline-item current">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">Platform Engineer</h4>
+						<span class="role-date">Aug 2026 – Present</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Design, build and maintain internal developer platforms (IDPs) and self-service
+							toolchains to let development teams ship code faster and more safely.
+						</li>
+						<li>
+							Architected and delivered a cloud-native data archival platform on Google Cloud (Cloud
+							Storage, BigQuery, and a containerised Flask API), replacing legacy datacentre VM and
+							spreadsheet lookups with instant, zero-extraction file retrieval by ID.
+						</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">Go</li>
+						<li class="tag">Google Cloud</li>
+						<li class="tag">Kubernetes</li>
+						<li class="tag">Terraform</li>
+					</ul>
+				</li>
+
+				<li class="timeline-item">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">Cloud Engineer</h4>
+						<span class="role-date">Feb 2024 – Aug 2026 · 2 yrs 7 mos</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Provide operations, deployment support, and consultancy services for production
+							systems running on Google Cloud.
+						</li>
+						<li>
+							Engineered and sustained highly available, large-scale production environments on
+							Google Cloud, actively modernising legacy infrastructure components to reduce
+							operational friction.
+						</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">Automation</li>
+						<li class="tag">Bash/shell</li>
+						<li class="tag">Google Cloud</li>
+						<li class="tag">Terraform</li>
+					</ul>
+				</li>
+
+				<li class="timeline-item">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">DevOps Engineer</h4>
+						<span class="role-date">Apr 2019 – Feb 2024 · 4 yrs 11 mos</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Operational &amp; optimisation support for CI/CD pipelines using Jenkins and AWS.
+						</li>
+						<li>Reduced OPEX by $30,000+ by leveraging AWS Trusted Advisor.</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">AWS</li>
+						<li class="tag">CI/CD Pipelines</li>
+						<li class="tag">Cost Optimisation</li>
+						<li class="tag">Jenkins</li>
+					</ul>
+				</li>
+
+				<li class="timeline-item">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">Senior Platform Support Engineer</h4>
+						<span class="role-date">Mar 2016 – Apr 2019 · 3 yrs 2 mos</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Led a two-person engineering team, delivering infrastructure and development support.
+						</li>
+						<li>
+							Developed a self-service web portal using Jira Service Desk, enabling thousands of
+							staff to access critical services autonomously.
+						</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">Jira Service Desk</li>
+						<li class="tag">Linux Administration</li>
+						<li class="tag">Platform Support</li>
+						<li class="tag">Team Leadership</li>
+					</ul>
+				</li>
+
+				<li class="timeline-item">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">Head of Service Delivery and Workflow Support</h4>
+						<span class="role-date">May 2014 – Mar 2016 · 1 yr 11 mos</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Led and managed a global team of ~14 engineers, including Technical Support Engineers
+							and Senior Software Development Tech Leads, delivering software development and
+							technical support services.
+						</li>
+						<li>
+							Implemented structured release planning methodologies, enabling the successful
+							delivery of ~48 major software releases in two years.
+						</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">Operations Leadership</li>
+						<li class="tag">Release Management</li>
+						<li class="tag">Service Delivery</li>
+						<li class="tag">Workflow Support</li>
+					</ul>
+				</li>
+			</ol>
+		</article>
+
+		<!-- BioMed Central -->
+		<article class="org-group" aria-label="BioMed Central career history">
+			<div class="org-header">
+				<h3 class="org-name">BioMed Central</h3>
+				<div class="org-meta">Full-time · London, England, United Kingdom</div>
+			</div>
+
+			<ol class="timeline">
+				<li class="timeline-item">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">Technical Support Lead</h4>
+						<span class="role-date">Oct 2012 – May 2014 · 1 yr 8 mos</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Led a team of two Technical Support Engineers, managing 1st/2nd line support for a
+							diverse portfolio of frontend web and backend database applications, ensuring strict
+							SLA compliance.
+						</li>
+						<li>
+							Recognised with the prestigious Staff Excellence Award in IT (2013) for outstanding
+							contributions to technical support and service delivery.
+						</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">Service Delivery</li>
+						<li class="tag">SLA Compliance</li>
+						<li class="tag">Systems Support</li>
+						<li class="tag">Technical Leadership</li>
+					</ul>
+				</li>
+
+				<li class="timeline-item">
+					<span class="timeline-marker" aria-hidden="true"></span>
+					<div class="role-header">
+						<h4 class="role-title">Technical Support Engineer</h4>
+						<span class="role-date">Oct 2008 – Oct 2012 · 4 yrs 1 mo</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Delivered business-critical 1st line technical support for ~250 staff, maintaining
+							uptime and performance across BioMed Central's frontend web and backend database
+							applications.
+						</li>
+						<li>
+							Designed and implemented BioMed Central's first incident management system using
+							Jira, streamlining support operations and efficiently handling 40,000+ support
+							requests.
+						</li>
+					</ul>
+					<ul class="tag-list" aria-label="Technologies and focus areas">
+						<li class="tag">Application Operations</li>
+						<li class="tag">Incident Management</li>
+						<li class="tag">Jira</li>
+						<li class="tag">Technical Support</li>
+					</ul>
+				</li>
+			</ol>
+		</article>
+	</section>
+
+	<div class="cta-section">
+		<a href="/" class="btn btn-secondary">← Back to Home</a>
+		<div class="action-buttons">
+			<a
+				href="https://github.com/benweston"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-primary"
+			>
+				GitHub Profile ↗
+			</a>
+			<a
+				href="https://www.linkedin.com/in/westonb26918/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-secondary"
+			>
+				LinkedIn Profile ↗
+			</a>
+		</div>
+	</div>
+</PageLayout>

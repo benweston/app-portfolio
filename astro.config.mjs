@@ -7,6 +7,16 @@ import { defineConfig, fontProviders } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://benweston.site',
+	redirects: {
+		'/home': {
+			status: 301,
+			destination: '/',
+		},
+		'/blog': {
+			status: 301,
+			destination: 'https://blog.benweston.site',
+		},
+	},
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
