@@ -69,18 +69,25 @@ Spins up a local HTTP server serving the compiled `dist/` folder to verify produ
 
 ```text
 app-portfolio/
-├── .github/workflows/      # Automated CI/CD pipelines
-├── assets/                 # Repository assets (banners, diagrams, screenshots)
-├── public/                 # Static assets copied untouched to site root (favicons, robots.txt)
+├── .github/
+│   ├── ISSUE_TEMPLATE/     # Standardised GitHub issue templates (task.md)
+│   └── workflows/          # Automated CI/CD pipelines (ci.yml, deploy-staging.yml, deploy-production.yml)
+├── assets/                 # Repository assets (banners, diagrams, icons, screenshots)
+├── docs/
+│   └── wiki/               # Canonical Markdown source for the GitHub Wiki
+├── public/                 # Static assets copied untouched to site root (favicons, apple-touch-icon)
 ├── src/
-│   ├── assets/             # Bundled, optimised fonts (Atkinson) and profile images
+│   ├── assets/             # Bundled, optimised fonts (Atkinson) and photography (profile.jpg, about-photo.jpg)
 │   ├── components/         # Reusable Astro UI components (Header, Footer, BaseHead, ThemeToggle)
-│   ├── content/            # Content Collections (blog posts and technical writing)
-│   ├── pages/              # File-based routing (index.astro)
+│   ├── content/            # Content Collections directory
+│   ├── layouts/            # Shared page layouts (PageLayout.astro)
+│   ├── pages/              # File-based routing (index.astro, about.astro, experience.astro, projects.astro)
 │   ├── styles/             # Global CSS and CSS variable definitions (global.css)
-│   ├── consts.ts           # Site-wide constants (SITE_TITLE, SITE_DESCRIPTION)
+│   ├── consts.ts           # Site-wide constants (SITE_TITLE, SITE_SUBTITLE, SITE_DESCRIPTION)
 │   └── content.config.ts   # Schema definitions for content collections
-├── astro.config.mjs        # Astro configuration and integrations (mdx, sitemap)
+├── astro.config.mjs        # Astro configuration, integrations (mdx, sitemap), and local 301 redirects
+├── firebase.json           # Firebase Multisite hosting configuration and edge 301 redirects
+├── .firebaserc             # Firebase project and target mappings (live, stage)
 ├── package.json            # Node dependencies, scripts, and engine constraints
 ├── tsconfig.json           # Astro strict type-checking configuration
 └── GEMINI.md               # Persistent AI agent instructions and project context
@@ -91,17 +98,21 @@ app-portfolio/
 ## ✍️ Content & Layout Management
 
 ### Modifying Global Constants
-Site title and default descriptions are managed in [`src/consts.ts`](https://github.com/benweston/app-portfolio/blob/main/src/consts.ts):
+Site title, header subtitle, and default descriptions are managed in [`src/consts.ts`](https://github.com/benweston/app-portfolio/blob/main/src/consts.ts):
 ```typescript
 export const SITE_TITLE = 'Ben Weston';
-export const SITE_DESCRIPTION = 'Personal portfolio showcasing enterprise Linux architecture, systems engineering, developer productivity tooling, and cloud infrastructure.';
+export const SITE_SUBTITLE = 'Enterprise Linux · Systems & DevEx · Cloud Architecture';
+export const SITE_DESCRIPTION =
+	'Personal portfolio showcasing projects, technical writing, and professional experience.';
 ```
 
-### Core Engineering Focus Cards
-The landing page displays three core workflow cards in strict order within [`src/pages/index.astro`](https://github.com/benweston/app-portfolio/blob/main/src/pages/index.astro):
-1. **Linux & Systems:** Distro operations (RHEL, SUSE, Debian), administration, security hardening, monitoring.
-2. **Software & DX:** Workstation automation (`dx-*`), CI/CD pipelines, Bash scripting, Python development.
-3. **Cloud & Architecture:** Google Cloud infrastructure, Terraform (IaC), containerised services (Docker), edge delivery.
+### Multi-Page Architecture & Shared Layout
+All routes are wrapped in [`src/layouts/PageLayout.astro`](https://github.com/benweston/app-portfolio/blob/main/src/layouts/PageLayout.astro), which enforces `<html lang="en-GB">`, renders `<BaseHead />`, `<Header />`, and `<Footer />`, and constrains page content within a responsive `1280px` `<main>` container:
+- **Home (`/` — [`src/pages/index.astro`](https://github.com/benweston/app-portfolio/blob/main/src/pages/index.astro)):** Hero banner, profile bio, a `4x1` **Core Engineering Focus** grid (*Enterprise Linux & Systems*, *Virtualisation & Containers*, *Software & DevEx (`dx-*`)*, and *Cloud & Architecture*), and **Featured Projects**.
+- **About (`/about` — [`src/pages/about.astro`](https://github.com/benweston/app-portfolio/blob/main/src/pages/about.astro)):** Hero photography, *Early Background*, and *Engineering Journey* narrative sections.
+- **Experience (`/experience` — [`src/pages/experience.astro`](https://github.com/benweston/app-portfolio/blob/main/src/pages/experience.astro)):** Keele University MSc Computer Science studies, Credly-verified LPI Linux Essentials certification badge, and vertical career timelines across Springer Nature and BioMed Central.
+- **Projects (`/projects` — [`src/pages/projects.astro`](https://github.com/benweston/app-portfolio/blob/main/src/pages/projects.astro)):** Categorised open-source repository directory structured across the three core engineering pillars (*Linux & Systems*, *Software & DX*, and *Cloud & Architecture*).
+- **Blog (`/blog` $\rightarrow$ [`blog.benweston.site`](https://blog.benweston.site/)):** Linked in [`Header.astro`](https://github.com/benweston/app-portfolio/blob/main/src/components/Header.astro) and routed via HTTP `301` edge redirects in `firebase.json` and `astro.config.mjs`.
 
 ### Theme & Styling Architecture
 - **Global Styles:** Controlled in [`src/styles/global.css`](https://github.com/benweston/app-portfolio/blob/main/src/styles/global.css) using semantic CSS custom properties (`--bg-body`, `--bg-surface`, `--accent`, `--border-color`).

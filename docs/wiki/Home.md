@@ -20,10 +20,11 @@
 - System Overview & Architecture
 - Local Workstation Prerequisites
 - Development Commands
-- Content Management & Customisation
+- Multi-Page Routing, Content & Layout Management
 
 #### [02 Operations Guide](02-Operations-Guide)
 - Hosting Infrastructure (Google Cloud & Firebase Multisite)
+- Decoupled Blog Architecture (`blog.benweston.site`)
 - Trunk-Based Delivery Lifecycle
 - GitHub Actions CI/CD Pipelines
 - Release Management & Promotion Workflow
@@ -45,12 +46,12 @@
 
 #### [05 Validation Commands](05-Validation-Commands)
 - Local Development & Build Checks
-- Edge CDN & DNS Verification
+- Edge CDN, Multi-Page Route & 301 Redirect Verification
 - Firebase Multisite Targets Inspection
 - Automated CI/CD Pipeline Verification
 
 #### [06 FAQ](06-FAQ)
-- Frequently Asked Questions regarding branching, release gating, stack scope, and localisation.
+- Frequently Asked Questions regarding branching, release gating, stack scope, decoupled blog routing, and localisation.
 
 </div>
 

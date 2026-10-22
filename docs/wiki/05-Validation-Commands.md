@@ -72,6 +72,24 @@ curl -I https://benweston.site
 # Expect: strict-transport-security header
 ```
 
+### Validate All Multi-Page Routes & HTTP 301 Edge Redirects
+```bash
+for path in "/" "/about" "/experience" "/projects" "/home" "/blog"; do
+  echo "=== https://benweston.site${path} ==="
+  curl -sI "https://benweston.site${path}" | head -n 5
+done
+# Expect:
+# /, /about, /experience, /projects -> HTTP/2 200
+# /home -> HTTP/2 301 (location: /)
+# /blog -> HTTP/2 301 (location: https://blog.benweston.site)
+```
+
+### Validate Decoupled Blog Endpoint
+```bash
+curl -I https://blog.benweston.site
+# Expect: HTTP/2 200
+```
+
 ---
 
 ## 🔥 3. Firebase Multisite CLI Validation

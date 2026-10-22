@@ -46,3 +46,11 @@ To maintain naming elegance and consistency, Firebase uses **Deploy Targets** (`
 3. Commit and tag it (`git tag -a v<x.y.z> -m "Release v<x.y.z>"`).
 4. Push with tags (`git push origin main --tags`).
 GitHub Actions will deploy it to **both** staging and production in parallel immediately.
+
+---
+
+### Q8: Why is the blog decoupled at `blog.benweston.site` instead of hosted inside `src/content/`?
+**A:** Separating the technical writing hub onto `blog.benweston.site` (backed by a two-way GitHub pipeline between `benweston/blog-source`, Hashnode's Edge network, and `benweston/blog-backup`) decouples article publishing from portfolio application releases:
+- Articles can be authored in Markdown and published independently via Git without cutting a new `app-portfolio` version tag.
+- Visitors navigating to `benweston.site/blog` (or clicking **Blog ↗** in the site header) are seamlessly routed via an HTTP `301` edge redirect to `https://blog.benweston.site`.
+- Because all articles remain stored as canonical Markdown with YAML frontmatter in Git, migrating to a self-hosted Astro blog (`app-blog`) in the future requires zero content rewriting.

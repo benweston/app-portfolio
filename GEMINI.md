@@ -36,25 +36,29 @@ Content and profile cards follow a defined three-tier workflow order:
 ```text
 app-portfolio/
 ├── .github/
+│   ├── ISSUE_TEMPLATE/     # Standardised GitHub issue templates (task.md)
 │   └── workflows/          # GitHub Actions pipelines (ci.yml, deploy-staging.yml, deploy-production.yml)
 ├── assets/                 # Repository-level assets (banners, diagrams, screenshots)
 │   ├── banners/            # Header and promotional banners (e.g. main-banner.png)
 │   ├── diagrams/           # Architecture diagrams and schematics
-│   ├── icons/              # Logos and SVG iconography
+│   ├── icons/              # Logos, certification badges, and SVG iconography
 │   ├── misc/               # Miscellaneous asset files
 │   └── screenshots/        # Project and demo screenshots
 ├── docs/                   # Project documentation
 │   └── wiki/               # Canonical Markdown source for GitHub Wiki
-├── public/                 # Static assets served at site root (favicons, robots.txt)
+├── public/                 # Static assets served at site root (favicons, apple-touch-icon)
 ├── src/
-│   ├── assets/             # Bundled, optimised image and font assets
+│   ├── assets/             # Bundled, optimised image and font assets (profile.jpg, about-photo.jpg, fonts/)
 │   ├── components/         # Reusable Astro UI components (Header, Footer, BaseHead, ThemeToggle)
-│   ├── content/            # Content Collections (planned for blog / articles)
-│   ├── pages/              # File-based routing (index.astro)
+│   ├── content/            # Content Collections directory
+│   ├── layouts/            # Shared page layout templates (PageLayout.astro)
+│   ├── pages/              # File-based routing (index.astro, about.astro, experience.astro, projects.astro)
 │   ├── styles/             # Global stylesheets (global.css)
-│   ├── consts.ts           # Site-wide constants (SITE_TITLE, SITE_DESCRIPTION)
+│   ├── consts.ts           # Site-wide constants (SITE_TITLE, SITE_SUBTITLE, SITE_DESCRIPTION)
 │   └── content.config.ts   # Schema definitions for content collections
-├── astro.config.mjs        # Astro configuration and integrations (mdx, sitemap)
+├── astro.config.mjs        # Astro configuration, integrations (mdx, sitemap), and local redirects
+├── firebase.json           # Firebase Multisite hosting configuration and edge redirects
+├── .firebaserc             # Firebase project and target mappings (live, stage)
 ├── package.json            # Project dependencies and npm scripts
 ├── tsconfig.json           # TypeScript configuration extending astro/tsconfigs/strict
 ├── .gitignore              # Git ignore rules for Node, Astro, Google Cloud, and OS files
