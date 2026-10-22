@@ -37,7 +37,7 @@ Content and profile cards follow a defined three-tier workflow order:
 app-portfolio/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/     # Standardised GitHub issue templates (task.md)
-│   └── workflows/          # GitHub Actions pipelines (ci.yml, deploy-staging.yml, deploy-production.yml)
+│   └── workflows/          # GitHub Actions pipelines (ci.yml, deploy-staging.yml, deploy-production.yml, sync-wiki.yml)
 ├── assets/                 # Repository-level assets (banners, diagrams, screenshots)
 │   ├── banners/            # Header and promotional banners (e.g. main-banner.png)
 │   ├── diagrams/           # Architecture diagrams and schematics
@@ -135,8 +135,20 @@ Trunk-Based Development with automated checks and promotion:
 | `ci.yml` | Pull Request to `main` | Runs `npx astro check` & `npm run build` | N/A (Build verification gate) |
 | `deploy-staging.yml` | Push/merge to `main` | Validates, builds & deploys to Staging | `https://stage.benweston.site` |
 | `deploy-production.yml` | Tag push `v*` (or manual dispatch) | Validates, builds & deploys to Production | `https://benweston.site` |
+| `sync-wiki.yml` | Push to `main` (`docs/wiki/**`) or manual dispatch | Mirrors `docs/wiki/*.md` to `.wiki.git` | `https://github.com/benweston/app-portfolio/wiki` |
 
-- **Authentication:** Deployments authenticate using Google Service Account secret `FIREBASE_SERVICE_ACCOUNT` via `google-github-actions/auth@v2`.
+- **Authentication:** Hosting deployments authenticate using Google Service Account secret `FIREBASE_SERVICE_ACCOUNT` via `google-github-actions/auth@v2`. Wiki synchronisation uses the built-in ephemeral `GITHUB_TOKEN` (`permissions: contents: write`).
+- **Manual Wiki Sync Fallback:**
+  If needed locally, `docs/wiki/*.md` can be synced manually via SSH:
+  ```bash
+  git clone git@github.com:benweston/app-portfolio.wiki.git /tmp/app-portfolio-wiki
+  cp docs/wiki/*.md /tmp/app-portfolio-wiki/
+  cd /tmp/app-portfolio-wiki
+  git add .
+  git commit -m "docs: sync wiki with main"
+  git push origin master
+  rm -rf /tmp/app-portfolio-wiki
+  ```
 
 ---
 

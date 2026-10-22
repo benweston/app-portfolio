@@ -71,7 +71,7 @@ Spins up a local HTTP server serving the compiled `dist/` folder to verify produ
 app-portfolio/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/     # Standardised GitHub issue templates (task.md)
-│   └── workflows/          # Automated CI/CD pipelines (ci.yml, deploy-staging.yml, deploy-production.yml)
+│   └── workflows/          # Automated CI/CD pipelines (ci.yml, deploy-staging.yml, deploy-production.yml, sync-wiki.yml)
 ├── assets/                 # Repository assets (banners, diagrams, icons, screenshots)
 ├── docs/
 │   └── wiki/               # Canonical Markdown source for the GitHub Wiki

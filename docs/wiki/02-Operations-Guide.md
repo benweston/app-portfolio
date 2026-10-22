@@ -88,12 +88,20 @@ All deployments run via GitHub Actions authenticated using Google Cloud service 
 - **Purpose:** Ensures `stage.benweston.site` is an always-fresh, living preview of the latest commit on `main`.
 
 ### 3. Production Release (`.github/workflows/deploy-production.yml`)
-- **Trigger:** Tag push matching `v*` (e.g. `v0.2.0`), or manual `workflow_dispatch`.
+- **Trigger:** Tag push matching `v*` (e.g. `v2.0.0`), or manual `workflow_dispatch`.
 - **Tasks:**
   - Compiles fresh static assets into `dist/`.
   - Authenticates to Google Cloud.
   - Executes `npx firebase deploy --only hosting:live`.
 - **Purpose:** Promotes verified staging code to the live domain.
+
+### 4. Automated Wiki Synchronisation (`.github/workflows/sync-wiki.yml`)
+- **Trigger:** Push to `main` modifying `docs/wiki/**`, or manual `workflow_dispatch`.
+- **Tasks:**
+  - Clones `benweston/app-portfolio.wiki.git` using the ephemeral `GITHUB_TOKEN` (`permissions: contents: write`).
+  - Mirrors all canonical Markdown files from `docs/wiki/*.md` into the Wiki repository.
+  - Commits and pushes any changes to `master`.
+- **Purpose:** Guarantees the live GitHub Wiki tab remains continuously synchronised with `docs/wiki/` in the main repository without requiring manual dual-repo commits or extra Personal Access Tokens.
 
 ---
 
@@ -178,4 +186,13 @@ npx firebase deploy --only hosting:stage
 # Deploy directly to Live
 npm run build
 npx firebase deploy --only hosting:live
+
+# Manually sync docs/wiki/*.md to the GitHub Wiki repository
+git clone git@github.com:benweston/app-portfolio.wiki.git /tmp/app-portfolio-wiki
+cp docs/wiki/*.md /tmp/app-portfolio-wiki/
+cd /tmp/app-portfolio-wiki
+git add .
+git commit -m "docs: sync wiki with main"
+git push origin master
+rm -rf /tmp/app-portfolio-wiki
 ```
