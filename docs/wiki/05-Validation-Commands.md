@@ -1,24 +1,36 @@
-# 05 Validation Commands
+<a href="https://github.com/benweston/app-portfolio">
+    <img
+        src="https://raw.githubusercontent.com/benweston/app-portfolio/main/assets/banners/main-banner.png"
+        alt="Ben Weston - Enterprise Linux & Cloud Architecture"
+        width="1100"
+        height="150"
+    />
+</a>
 
-This runbook provides executable CLI commands for validating local builds, DNS resolution, edge CDN responses, IAM policies, and automated deployments.
+<div align="justify">
 
----
+> Provides executable CLI commands for validating local builds, DNS resolution, edge CDN responses, IAM policies, and automated deployments.   
 
-## 💻 1. Local Workstation & Build Validation
+</div>
+
+## 1. Local Workstation & Build Validation
 
 ### Verify Node & npm Environments
+
 ```bash
 node -v   # Expect: >=v22.12.0
 npm -v    # Expect: >=v10.x
 ```
 
 ### Run Static Type & Astro Diagnostics
+
 ```bash
 npx astro check
 # Expect: 0 errors, 0 warnings, 0 hints
 ```
 
 ### Clean Rebuild Verification
+
 ```bash
 rm -rf dist
 npm run build
@@ -26,16 +38,16 @@ npm run build
 ```
 
 ### Preview Compiled Output Locally
+
 ```bash
 npm run preview
 # Serves dist/ at http://localhost:4321
 ```
 
----
-
-## 🌐 2. DNS & Edge CDN Validation
+## 2. DNS & Edge CDN Validation
 
 ### Validate Staging DNS Resolution
+
 ```bash
 dig stage.benweston.site +short
 # Expect:
@@ -44,6 +56,7 @@ dig stage.benweston.site +short
 ```
 
 ### Validate Production DNS Resolution
+
 ```bash
 dig benweston.site +short
 # Expect:
@@ -51,6 +64,7 @@ dig benweston.site +short
 ```
 
 ### Test HTTP-to-HTTPS Automatic Redirection
+
 ```bash
 curl -Iv http://stage.benweston.site
 # Expect: HTTP/1.1 301 Moved Permanently
@@ -58,6 +72,7 @@ curl -Iv http://stage.benweston.site
 ```
 
 ### Test Staging HTTPS Edge Response
+
 ```bash
 curl -I https://stage.benweston.site
 # Expect: HTTP/2 200
@@ -66,6 +81,7 @@ curl -I https://stage.benweston.site
 ```
 
 ### Test Live Production HTTPS Edge Response
+
 ```bash
 curl -I https://benweston.site
 # Expect: HTTP/2 200
@@ -73,6 +89,7 @@ curl -I https://benweston.site
 ```
 
 ### Validate All Multi-Page Routes & HTTP 301 Edge Redirects
+
 ```bash
 for path in "/" "/about" "/experience" "/projects" "/home" "/blog"; do
   echo "=== https://benweston.site${path} ==="
@@ -85,16 +102,16 @@ done
 ```
 
 ### Validate Decoupled Blog Endpoint
+
 ```bash
 curl -I https://blog.benweston.site
 # Expect: HTTP/2 200
 ```
 
----
-
-## 🔥 3. Firebase Multisite CLI Validation
+## 3. Firebase Multisite CLI Validation
 
 ### List Hosting Sites in Project
+
 ```bash
 npx firebase hosting:sites:list
 # Expect:
@@ -103,6 +120,7 @@ npx firebase hosting:sites:list
 ```
 
 ### Inspect Applied Deploy Targets
+
 ```bash
 npx firebase target
 # Expect:
@@ -110,11 +128,10 @@ npx firebase target
 # stage -> app-portfolio-stage
 ```
 
----
-
-## 🛡️ 4. Google Cloud IAM Validation
+## 4. Google Cloud IAM Validation
 
 ### Verify Service Account Existence & Details
+
 ```bash
 gcloud iam service-accounts describe \
   github-actions-deployer@app-portfolio-e0f7f.iam.gserviceaccount.com \
@@ -122,6 +139,7 @@ gcloud iam service-accounts describe \
 ```
 
 ### Verify IAM Role Binding
+
 ```bash
 gcloud projects get-iam-policy app-portfolio-e0f7f \
   --flatten="bindings[].members" \
@@ -129,17 +147,17 @@ gcloud projects get-iam-policy app-portfolio-e0f7f \
 # Expect: roles/firebasehosting.admin
 ```
 
----
-
-## 🤖 5. GitHub Actions Pipeline Validation
+## 5. GitHub Actions Pipeline Validation
 
 ### Inspect Recent Workflow Runs (via GitHub CLI or cURL)
+
 ```bash
 curl -s "https://api.github.com/repos/benweston/app-portfolio/actions/runs?per_page=5" | \
   grep -E '("(name|display_title|status|conclusion)":)'
 ```
 
 ### Validate Local Git Tags Against Remote
+
 ```bash
 git tag -l
 git ls-remote --tags origin

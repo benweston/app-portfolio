@@ -1,64 +1,55 @@
 <a href="https://github.com/benweston/app-portfolio">
-    <img src="https://raw.githubusercontent.com/benweston/app-portfolio/main/assets/banners/main-banner.png" alt="Ben Weston - Enterprise Linux & Cloud Architecture" width="1100" height="150" />
+    <img
+        src="https://raw.githubusercontent.com/benweston/app-portfolio/main/assets/banners/main-banner.png"
+        alt="Ben Weston - Enterprise Linux & Cloud Architecture"
+        width="1100"
+        height="150"
+    />
 </a>
 
-# App - Portfolio Documentation
-
 <div align="justify">
 
-> Operational guidance, architecture references, and release engineering standards for **[benweston.site](https://benweston.site/)**.
+> Operational guidance, architecture references, and release engineering standards for **[benweston.site](https://benweston.site/)**.   
 
 </div>
 
----
-
-### Navigation Index
-
 <div align="justify">
 
-#### [01 User Guide](01-User-Guide)
-- System Overview & Architecture
-- Local Workstation Prerequisites
-- Development Commands
-- Multi-Page Routing, Content & Layout Management
+### [01 User Guide](https://github.com/benweston/app-portfolio/wiki/01-User-Guide)
+* [System Overview](https://github.com/benweston/app-portfolio/wiki/01-User-Guide#system-overview)   
+* [Workstation Prerequisites](https://github.com/benweston/app-portfolio/wiki/01-User-Guide#workstation-prerequisites)   
+* [Quick Start & Local Commands](https://github.com/benweston/app-portfolio/wiki/01-User-Guide#quick-start--local-commands)   
+* [Repository & Source Structure](https://github.com/benweston/app-portfolio/wiki/01-User-Guide#repository--source-structure)   
+* [Content & Layout Management](https://github.com/benweston/app-portfolio/wiki/01-User-Guide#content--layout-management)   
 
-#### [02 Operations Guide](02-Operations-Guide)
-- Hosting Infrastructure (Google Cloud & Firebase Multisite)
-- Decoupled Blog Architecture (`blog.benweston.site`)
-- Trunk-Based Delivery Lifecycle
-- GitHub Actions CI/CD Pipelines
-- Release Management & Promotion Workflow
-- Emergency Rollback Procedures
+### [02 Operations Guide](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide)   
+* [Core Principles & Ruleset](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#core-principles--ruleset)   
+* [Environment Architecture](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#environment-architecture)   
+* [Delivery Lifecycle](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#delivery-lifecycle)   
+* [CI/CD Automation Pipelines (GitHub Actions)](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#cicd-automation-pipelines-github-actions)   
+* [Step-by-Step Developer Workflows](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#step-by-step-developer-workflows)   
+* [Manual CLI Fallbacks](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#manual-cli-fallbacks)   
 
-#### [03 Troubleshooting](03-Troubleshooting)
-- Local Type-Checking & Build Errors
-- Firebase Hosting & Content Hash Failures
-- CI/CD Authentication & Workflow Failures
-- DNS Resolution & SSL Provisioning Delays
-- Theme Toggle & FOUC Diagnostics
+### [03 Troubleshooting](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting)
+* [Build & Compilation Issues](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting#build--compilation-issues)   
+* [Firebase Deployment Issues](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting#firebase-deployment-issues)   
+* [GitHub Actions Pipeline Failures](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting#github-actions-pipeline-failures)   
+* [DNS, Domain, & SSL Issues](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting#dns-domain--ssl-issues)   
 
-#### [04 IAM Model](04-IAM-Model)
-- Principle of Least Privilege (PoLP)
-- User Access & Ownership
-- Service Account Architecture (`github-actions-deployer`)
-- Secret Management (`FIREBASE_SERVICE_ACCOUNT`)
-- End-to-End Authentication Flow
+### [04 IAM Model](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model)
+* [Security Architecture & Principles](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model#security-architecture--principles)   
+* [User Access & Identity](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model#user-access--identity)   
+* [Service Account Architecture](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model#service-account-architecture)   
+* [Secret Management](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model#secret-management)   
+* [End-to-End Authentication Flow](https://github.com/benweston/app-portfolio/wiki/04-IAM-Model#end-to-end-authentication-flow)   
 
-#### [05 Validation Commands](05-Validation-Commands)
-- Local Development & Build Checks
-- Edge CDN, Multi-Page Route & 301 Redirect Verification
-- Firebase Multisite Targets Inspection
-- Automated CI/CD Pipeline Verification
+### [05 Validation Commands](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands)
+* [1. Local Workstation & Build Validation](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands#1-local-workstation--build-validation)   
+* [2. DNS & Edge CDN Validation](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands#2-dns--edge-cdn-validation)   
+* [3. Firebase Multisite CLI Validation](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands#3-firebase-multisite-cli-validation)   
+* [4. Google Cloud IAM Validation](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands#4-google-cloud-iam-validation)   
+* [5. GitHub Actions Pipeline Validation](https://github.com/benweston/app-portfolio/wiki/05-Validation-Commands#5-github-actions-pipeline-validation)   
 
-#### [06 FAQ](06-FAQ)
-- Frequently Asked Questions regarding branching, release gating, stack scope, decoupled blog routing, and localisation.
-
-</div>
-
----
-
-<div align="center">
-
-[Ben Weston](https://github.com/benweston) | 2026
+### [06 FAQ](https://github.com/benweston/app-portfolio/wiki/06-FAQ)
 
 </div>
