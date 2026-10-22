@@ -9,7 +9,7 @@
 
 <div align="justify">
 
-> Covers the technical architecture, workstation setup, local development workflow, and content management for **[benweston.site](https://benweston.site/)**.
+> Covers the technical architecture, workstation setup, local development workflow, and content management for **[benweston.site](https://benweston.site/)**.   
 
 </div>
 

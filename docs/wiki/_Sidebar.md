@@ -17,7 +17,7 @@
 * [Delivery Lifecycle](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#delivery-lifecycle)   
 * [CI/CD Automation Pipelines (GitHub Actions)](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#cicd-automation-pipelines-github-actions)   
 * [Step-by-Step Developer Workflows](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#step-by-step-developer-workflows)   
-* [Manual CLI Fallbacks](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#manual-cli-fallbacks)
+* [Manual CLI Fallbacks](https://github.com/benweston/app-portfolio/wiki/02-Operations-Guide#manual-cli-fallbacks)   
 
 [**03 Troubleshooting**](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting)   
 * [Build & Compilation Issues](https://github.com/benweston/app-portfolio/wiki/03-Troubleshooting#build--compilation-issues)   
@@ -44,6 +44,6 @@
 ---
 
 **Environments**
-- [Live Site](https://benweston.site)
-- [Staging](https://stage.benweston.site)
-- [Repository](https://github.com/benweston/app-portfolio)
+- [Live Site](https://benweston.site)   
+- [Staging](https://stage.benweston.site)   
+- [Repository](https://github.com/benweston/app-portfolio)   
