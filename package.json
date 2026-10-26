@@ -2,7 +2,7 @@
   "name": "app-portfolio",
   "description": "Personal landing page, portfolio, and technical writing for benweston.site",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "engines": {
     "node": ">=22.12.0"
   },
