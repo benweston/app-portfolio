@@ -19,16 +19,14 @@ const { title, description, image } = Astro.props;
 		<BaseHead title={title} description={description} image={image} />
 		<style>
 			main {
-				width: 100%;
-				max-width: 100%;
-				box-sizing: border-box;
+				width: 1280px;
+				max-width: calc(100% - 2.5em);
 				margin: 0 auto;
-				padding: 1.25rem 2.5rem;
+				padding: 3em 1em;
 			}
 
 			@media (max-width: 720px) {
 				main {
-					max-width: calc(100% - 2em);
 					padding: 1.5em 1em;
 				}
 			}
