@@ -1,9 +1,9 @@
 <a href="https://github.com/benweston/app-portfolio">
     <img
         src="/assets/banners/main-banner.png"
-        alt="Ben Weston - Cloud & Software Engineering"
+        alt="Ben Weston - Enterprise Linux · Systems & DevEx · Cloud Architecture"
         width="1100"
-        height="150"
+        height="325"
         loading="lazy"
     />
 </a>

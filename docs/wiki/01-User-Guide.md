@@ -1,9 +1,9 @@
 <a href="https://github.com/benweston/app-portfolio">
     <img
         src="https://raw.githubusercontent.com/benweston/app-portfolio/main/assets/banners/main-banner.png"
-        alt="Ben Weston - Enterprise Linux & Cloud Architecture"
+        alt="Ben Weston - Enterprise Linux · Systems & DevEx · Cloud Architecture"
         width="1100"
-        height="150"
+        height="325"
     />
 </a>
 
@@ -36,7 +36,7 @@ Ensure your local development workstation satisfies the following requirements:
 
 | Tool | Minimum Version | Installation / Verification |
 | :--- | :--- | :--- |
-| **Node.js** | `>=22.12.0` | `node -v` |
+| **Node.js** | `>=22.23.4` | `node -v` |
 | **npm** | `>=10.x` | `npm -v` |
 | **Git** | `>=2.40` | `git --version` |
 | **Firebase CLI** *(optional local)* | `^15.33.0` | Available locally via `npx firebase` |

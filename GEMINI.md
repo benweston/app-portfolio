@@ -23,7 +23,7 @@ Content and profile cards follow a defined three-tier workflow order:
   - Content Collections for type-safe Markdown (`.md`) and MDX (`.mdx`) authoring.
   - Zero-JS by default for maximum performance, SEO, and accessibility.
   - Scoped styling with Atkinson Hyperlegible typography and dark/light theme switching.
-- **Runtime & Package Manager:** Node.js (>=22.12.0) with `npm`.
+- **Runtime & Package Manager:** Node.js (>=22.23.4) with `npm`.
 - **Hosting & Infrastructure:** Google Cloud via **Firebase Hosting**.
   - Deployed to Google's Global Edge CDN with zero server runtime overhead.
   - Custom domain (`benweston.site`) managed in Squarespace, pointing to Google Edge `A` / `TXT` records.
