@@ -1,8 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
 import { SITE_SUBTITLE, SITE_TITLE } from '../consts';
-import lpiLinuxEssentials from '../../assets/icons/linux-essentials-certificate.png';
 
 const pageTitle = `${SITE_TITLE} | Experience`;
 const pageDescription =
@@ -172,8 +170,7 @@ const pageDescription =
 		}
 
 		.timeline-item.current .role-date,
-		.education-card.current .role-date,
-		.cert-card-horizontal.current .role-date {
+		.education-card.current .role-date {
 			border-color: var(--accent);
 			color: var(--accent);
 		}
@@ -256,80 +253,6 @@ const pageDescription =
 			color: rgb(var(--black));
 		}
 
-		/* Certifications Section */
-		.cert-card-horizontal {
-			display: flex;
-			align-items: center;
-			gap: 1.5rem;
-			background: var(--bg-surface);
-			border: 1px solid var(--border-color);
-			border-radius: 12px;
-			padding: 1.35rem 1.6rem;
-			text-decoration: none;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 4%);
-			transition:
-				transform 0.15s ease,
-				box-shadow 0.15s ease,
-				border-color 0.15s ease,
-				background-color 0.2s ease;
-		}
-
-		.cert-card-horizontal:hover,
-		.cert-card-horizontal:focus-visible {
-			transform: translateY(-2px);
-			box-shadow: var(--box-shadow);
-			border-color: var(--accent);
-			outline: none;
-		}
-
-		.cert-badge-link {
-			flex-shrink: 0;
-			display: block;
-		}
-
-		.cert-badge-img {
-			width: 110px;
-			height: 110px;
-			border-radius: 8px;
-			display: block;
-			object-fit: contain;
-		}
-
-		.cert-content {
-			flex: 1;
-			min-width: 0;
-		}
-
-		.cert-header-row {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-			align-items: baseline;
-			gap: 0.5rem 1rem;
-			margin-bottom: 0.25rem;
-		}
-
-		.cert-title {
-			font-size: 1.3rem;
-			font-weight: 700;
-			margin: 0;
-			color: rgb(var(--black));
-		}
-
-		.cert-issuer {
-			font-size: 1rem;
-			font-weight: 700;
-			color: var(--accent);
-			margin: 0 0 0.5rem 0;
-		}
-
-		.cert-desc {
-			font-size: 0.92rem;
-			line-height: 1.55;
-			color: rgb(var(--gray-dark));
-			margin: 0 0 0.75rem 0;
-		}
-
 		/* Call to Action Section */
 		.cta-section {
 			margin-top: 3.5rem;
@@ -387,12 +310,6 @@ const pageDescription =
 				padding: 1.25rem;
 			}
 
-			.cert-card-horizontal {
-				flex-direction: column;
-				align-items: flex-start;
-				padding: 1.25rem;
-			}
-
 			.role-header,
 			.education-header {
 				flex-direction: column;
@@ -441,7 +358,8 @@ const pageDescription =
 		<div class="page-subtitle">{SITE_SUBTITLE}</div>
 		<p class="page-lead">
 			Nearly two decades of experience progressing from technical support into DevOps, cloud, and
-			platform engineering across enterprise publishing and technology organisations.
+			platform engineering across enterprise publishing and technology organisations, alongside
+			postgraduate Computer Science studies at Keele University.
 		</p>
 	</div>
 
@@ -483,46 +401,6 @@ const pageDescription =
 				<li class="tag">Web Technologies and Security</li>
 			</ul>
 		</article>
-	</section>
-
-	<section aria-labelledby="certifications-heading">
-		<div class="section-header">
-			<h2 id="certifications-heading">Certifications</h2>
-		</div>
-
-		<a
-			href="https://www.credly.com/badges/22bccbcc-ac8d-4aeb-8d26-5c92ffa414ff/public_url"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="cert-card-horizontal current"
-		>
-			<div class="cert-badge-link">
-				<Image
-					src={lpiLinuxEssentials}
-					alt="Linux Professional Institute - Linux Essentials Certification Badge"
-					class="cert-badge-img"
-					width={220}
-					height={220}
-				/>
-			</div>
-			<div class="cert-content">
-				<div class="cert-header-row">
-					<h3 class="cert-title">Linux Professional Institute (LPI)</h3>
-					<span class="role-date">Verify on Credly ↗</span>
-				</div>
-				<p class="cert-issuer">Linux Essentials</p>
-				<p class="cert-desc">
-					Foundational certificate validating core Linux command-line operations, system
-					architecture, open-source software licensing, shell scripting, and security permissions.
-				</p>
-				<ul class="tag-list" aria-label="Certification topics">
-					<li class="tag">Linux CLI</li>
-					<li class="tag">Security &amp; Permissions</li>
-					<li class="tag">Shell Scripting</li>
-					<li class="tag">System Architecture</li>
-				</ul>
-			</div>
-		</a>
 	</section>
 
 	<section aria-labelledby="career-heading">

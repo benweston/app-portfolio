@@ -41,7 +41,7 @@ app-portfolio/
 ├── assets/                 # Repository-level assets (banners, diagrams, screenshots)
 │   ├── banners/            # Header and promotional banners (e.g. main-banner.png)
 │   ├── diagrams/           # Architecture diagrams and schematics
-│   ├── icons/              # Logos, certification badges, and SVG iconography
+│   ├── icons/              # Logos, badges, and SVG iconography
 │   ├── misc/               # Miscellaneous asset files
 │   └── screenshots/        # Project and demo screenshots
 ├── docs/                   # Project documentation
