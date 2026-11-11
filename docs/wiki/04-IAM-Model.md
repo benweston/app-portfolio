@@ -3,7 +3,7 @@
         src="https://raw.githubusercontent.com/benweston/app-portfolio/main/assets/banners/main-banner.png"
         alt="Ben Weston - Enterprise Linux · Systems & DevEx · Cloud Architecture"
         width="1100"
-        height="325"
+        height="217"
     />
 </a>
 
