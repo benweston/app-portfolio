@@ -75,6 +75,6 @@ Work tracking, backlog prioritisation, and release workflows are managed on the 
 <div align="justify">
 
 The `app-portfolio` repository is open source and provided under the [MIT License](https://github.com/benweston/app-portfolio/blob/main/LICENSE).   
-Banner image taken from photo by [Risto Kokkonen](https://unsplash.com/@risto_kokkonen) on [Unsplash](https://unsplash.com/photos/a-close-up-of-a-cell-phone-with-a-pattern-on-it-FT4hPjqk24s) via the [Unsplash License](https://unsplash.com/license).   
+Banner image taken from photo by [amgun](https://www.istockphoto.com/portfolio/amgun) on [iStock](https://www.istockphoto.com/photo/program-code-development-icon-on-a-digital-lcd-display-with-reflection-gm1500238408-521741043?clarity=false) and is licenced separately via an [iStock standard licence](https://www.istockphoto.com/legal/license-agreement).   
 
 </div>
